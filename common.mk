@@ -67,7 +67,7 @@ verilog: $(verilog)
 romgen := $(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).rom.v
 $(romgen): $(verilog)
 ifneq ($(BOOTROM_DIR),"")
-	$(MAKE) -C $(BOOTROM_DIR) romgen
+	$(MAKE) -C $(BOOTROM_DIR) NUM_CORES=$(NUM_CORES) romgen
 	mv $(BUILD_DIR)/rom.v $@
 endif
 
