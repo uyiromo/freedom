@@ -31,8 +31,9 @@ export rocketchip_dir := $(base_dir)/rocket-chip
 SBT ?= java -jar $(rocketchip_dir)/sbt-launch.jar
 
 # Build firrtl.jar and put it where chisel3 can find it.
+ROCKET_CLASSES ?= "$(rocketchip_dir)/target/scala-2.12/classes:$(rocketchip_dir)/chisel3/target/scala-2.12/*"
 FIRRTL_JAR ?= $(rocketchip_dir)/firrtl/utils/bin/firrtl.jar
-FIRRTL ?= java -Xmx2G -Xss8M -XX:MaxPermSize=256M -cp $(FIRRTL_JAR) firrtl.Driver
+FIRRTL ?= java -Xmx2G -Xss8M -XX:MaxPermSize=256M -cp $(FIRRTL_JAR):$(ROCKET_CLASSES) firrtl.Driver
 
 $(FIRRTL_JAR): $(shell find $(rocketchip_dir)/firrtl/src/main/scala -iname "*.scala")
 	$(MAKE) -C $(rocketchip_dir)/firrtl SBT="$(SBT)" root_dir=$(rocketchip_dir)/firrtl build-scala
@@ -53,8 +54,9 @@ firrtl: $(firrtl)
 
 # Build .v
 verilog := $(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).v
+anno    := $(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).anno.json
 $(verilog): $(firrtl) $(FIRRTL_JAR)
-	$(FIRRTL) -i $(firrtl) -o $@ -X verilog
+	$(FIRRTL) -i $(firrtl) -o $@ -X verilog -faf $(anno)
 ifneq ($(PATCHVERILOG),"")
 	$(PATCHVERILOG)
 endif

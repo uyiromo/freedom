@@ -11,7 +11,8 @@ lazy val commonSettings = Seq(
     "-unchecked",
     "-Xsource:2.11",
     "-language:reflectiveCalls"
-  )
+  ),
+  autoCompilerPlugins := true
 )
 
 // A RootProject (not well-documented) tells sbt to treat the target directory
@@ -23,7 +24,8 @@ lazy val rocketChip = RootProject(file("rocket-chip"))
 
 lazy val sifiveBlocks = (project in file("sifive-blocks")).
   dependsOn(rocketChip).
-  settings(commonSettings: _*)
+  settings(commonSettings: _*).
+  settings(addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full))
 
 lazy val nvdlaBlocks = (project in file("nvidia-dla-blocks")).
   dependsOn(rocketChip).
