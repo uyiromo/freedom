@@ -23,4 +23,7 @@ VSRCS := \
 	$(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).rom.v \
 	$(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).v
 
+#PATCHVERILOG = ./scripts/connect_nvmmctr_mig.sh
+PATCHVERILOG = ./scripts/connect_nvmmctr_mig-pcie.sh
+
 include common.mk
