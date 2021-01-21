@@ -4,6 +4,7 @@ package sifive.freedom.unleashed
 
 import Chisel._
 import chisel3.experimental.{withClockAndReset}
+import chisel3.core.dontTouch
 
 import freechips.rocketchip.config._
 import freechips.rocketchip.subsystem._
@@ -21,6 +22,7 @@ import sifive.blocks.devices.spi._
 import sifive.blocks.devices.uart._
 import sifive.blocks.devices.gpio._
 import sifive.blocks.devices.pinctrl.{BasePin}
+import sifive.blocks.devices.nvmmctr._
 
 import sifive.fpgashells.shell._
 import sifive.fpgashells.clocks._
@@ -66,7 +68,8 @@ case object DevKitFPGAFrequencyKey extends Field[Double](100.0)
 
 class DevKitFPGADesign(wranglerNode: ClockAdapterNode, corePLL: PLLNode)(implicit p: Parameters) extends RocketSubsystem
     with HasPeripheryDebug
-    with  HasHierarchicalBusTopology
+    with HasHierarchicalBusTopology
+    with HasPeripheryNVMMCTR
 {
   val tlclock = new FixedClockResource("tlclk", p(DevKitFPGAFrequencyKey))
 
@@ -131,6 +134,7 @@ class U500VC707DevKitSystemModule[+L <: DevKitFPGADesign](_outer: L)
   extends RocketSubsystemModuleImp(_outer)
     with HasRTCModuleImp
     with HasPeripheryDebugModuleImp
+    with HasPeripheryNVMMCTRModuleImp
 {
   // Reset vector is set to the location of the mask rom
   val maskROMParams = p(PeripheryMaskROMKey)

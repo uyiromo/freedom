@@ -12,12 +12,14 @@ import freechips.rocketchip.tile._
 import sifive.blocks.devices.gpio._
 import sifive.blocks.devices.spi._
 import sifive.blocks.devices.uart._
+import sifive.blocks.devices.nvmmctr._
 
 // Default FreedomU500Config
 class FreedomU500Config extends Config(
   new WithJtagDTM            ++
   new WithNMemoryChannels(1) ++
-  new WithNBigCores(4)       ++
+  new WithExtMemSize(0x100000000L) ++
+  new WithNBigCores(1)       ++
   new BaseConfig
 )
 
@@ -30,7 +32,8 @@ class U500DevKitPeripherals extends Config((site, here, up) => {
   case PeripheryGPIOKey => List(
     GPIOParams(address = BigInt(0x64002000L), width = 4))
   case PeripheryMaskROMKey => List(
-    MaskROMParams(address = 0x10000, name = "BootROM"))
+    MaskROMParams(address = 0x78000000L, name = "BootROM"))
+  case PeripheryNVMMCTRKey => Some(NVMMCTRParams(address = 0x64003000L))
 })
 
 // Freedom U500 Dev Kit
