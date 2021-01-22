@@ -3,3 +3,16 @@
 # sbt directories
 /target
 /project/target
+
+# vivado
+*.log
+*.jou
+
+# automatically copied / generated
+AnalogToUInt_1.v
+UIntToAnalog_1.v
+firrtl_black_box_resource_files.f
+plusarg_reader.v
+
+# temporary
+/tmp
