@@ -15,11 +15,14 @@ rocketchip_dir := $(base_dir)/rocket-chip
 sifiveblocks_dir := $(base_dir)/sifive-blocks
 VSRCS := \
 	$(rocketchip_dir)/src/main/resources/vsrc/AsyncResetReg.v \
+	$(rocketchip_dir)/src/main/resources/vsrc/EICG_wrapper.v \
 	$(rocketchip_dir)/src/main/resources/vsrc/plusarg_reader.v \
 	$(sifiveblocks_dir)/vsrc/SRLatch.v \
 	$(FPGA_DIR)/common/vsrc/PowerOnResetFPGAOnly.v \
 	$(FPGA_DIR)/$(BOARD)/vsrc/sdio.v \
 	$(FPGA_DIR)/$(BOARD)/vsrc/vc707reset.v \
+    $(base_dir)/UIntToAnalog_1.v \
+    $(base_dir)/AnalogToUInt_1.v \
 	$(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).rom.v \
 	$(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).v
 
