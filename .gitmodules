@@ -13,3 +13,6 @@
 [submodule "bootrom/freedom-u540-c000-bootloader"]
 	path = bootrom/freedom-u540-c000-bootloader
 	url = https://github.com/uyiromo/freedom-u540-c000-bootloader
+[submodule "sifive-cache"]
+	path = sifive-cache
+	url = https://github.com/sifive/block-inclusivecache-sifive
