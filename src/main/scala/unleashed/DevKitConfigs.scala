@@ -19,7 +19,9 @@ class FreedomU500Config extends Config(
   new WithJtagDTM            ++
   new WithNMemoryChannels(1) ++
   new WithExtMemSize(0x100000000L) ++
-  new WithNBigCores(1)       ++
+  new WithInclusiveCache     ++       // use Sifive L2 cache
+  new WithL1DCacheWays(8)    ++
+  new WithNBigCores(4)       ++
   new BaseConfig
 )
 
