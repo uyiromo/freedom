@@ -34,7 +34,7 @@ class U500DevKitPeripherals extends Config((site, here, up) => {
   case PeripheryGPIOKey => List(
     GPIOParams(address = BigInt(0x64002000L), width = 4))
   case PeripheryMaskROMKey => List(
-    MaskROMParams(address = 0x78000000L, name = "BootROM"))
+    MaskROMParams(address = 0x78000000L, depth = 0x1000, name = "BootROM"))
   case PeripheryNVMMCTRKey => Some(NVMMCTRParams(address = 0x64003000L))
 })
 
