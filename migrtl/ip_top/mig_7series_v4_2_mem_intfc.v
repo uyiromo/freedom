@@ -395,10 +395,10 @@ module mig_7series_v4_2_mem_intfc #
    ,output [6*DQS_WIDTH*RANKS-1:0]      dbg_prbs_first_edge_taps
    ,output [6*DQS_WIDTH*RANKS-1:0]      dbg_prbs_second_edge_taps
    ,output [1023:0]          dbg_poc
-   ,input  [ 7:0] lat_fr
-   ,input  [ 7:0] lat_fw
+   ,input  [ 7:0] tRCD2
+   ,input  [ 7:0] tRP2
+   ,input  [10:0] tRAS2
    ,output [63:0] cnt_act
-   ,output [63:0] cnt_pre
    ,input  [2:0]  nvmm_begin
    );
 
@@ -657,10 +657,10 @@ module mig_7series_v4_2_mem_intfc #
       .fi_xor_we          (fi_xor_we),
       .fi_xor_wrdata          (fi_xor_wrdata),
       .use_addr               (use_addr),
-      .lat_fr(lat_fr),
-      .lat_fw(lat_fw),
+      .tRCD2(tRCD2),
+      .tRP2(tRP2),
+      .tRAS2(tRAS2),
       .cnt_act(cnt_act),
-      .cnt_pre(cnt_pre),
       .nvmm_begin(nvmm_begin)
 );
 

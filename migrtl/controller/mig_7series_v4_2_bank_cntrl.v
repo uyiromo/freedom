@@ -118,7 +118,7 @@ module mig_7series_v4_2_bank_cntrl #
   data_buf_addr, col, cmd, clk, bm_end_in, bank, adv_order_q,
   accept_req, accept_internal_r, rnk_config_kill_rts_col, phy_mc_ctl_full,
   phy_mc_cmd_full, phy_mc_data_full,
-  lat_fr, lat_fw, cnt_act, cnt_pre, nvmm_begin, bank_dirty
+  tRCD2, tRP2, tRAS2, nvmm_begin, bank_dirty
   );
 
 
@@ -248,10 +248,9 @@ module mig_7series_v4_2_bank_cntrl #
   output maint_hit;
   output [DATA_BUF_ADDR_WIDTH-1:0] req_data_buf_addr_r;
 
-   input  [ 7:0] lat_fr;
-   input  [ 7:0] lat_fw;
-   output [63:0] cnt_act;
-   output [63:0] cnt_pre;
+   input  [ 7:0] tRCD2;
+   input  [ 7:0] tRP2;
+   input  [10:0] tRAS2;
    input  [2:0]  nvmm_begin;
    input  [7:0]  bank_dirty;
 
@@ -259,18 +258,12 @@ module mig_7series_v4_2_bank_cntrl #
    wire        to_nvmm;
    assign to_nvmm = (bank >= nvmm_begin);
 
-   wire [ 2:0]    low3;
-   wire [ 7:0]    lat_fr_;
-   wire [ 7:0]    lat_fw_;
-   wire [10:0]    nRAS_CLKS_;
-   assign lat_fr_ = to_nvmm ? lat_fr : 'h0;
-   assign lat_fw_ = (to_nvmm & bank_dirty[bank]) ? lat_fw : 'h0;
-   //assign nRAS_CLKS_ = (to_nvmm & lat_fr[0]) ? 1560 : nRAS_CLKS;
-
-   //assign low3    = lat_fr_[2:0];
-   //assign nRAS_CLKS_ = nRAS_CLKS + 2 * lat_fr_;
-   //assign nRAS_CLKS_ = nRAS_CLKS + 'd1560;
-   assign nRAS_CLKS_ = 'd7 * lat_fr_ + nRAS_CLKS;
+   wire [ 7:0]    tRCD2_;
+   wire [ 7:0]    tRP2_;
+   wire [10:0]    tRAS2_;
+   assign tRCD2_ = to_nvmm ? tRCD2 : 'h0;
+   assign tRP2_  = (to_nvmm & bank_dirty[bank]) ? tRP2 : 'h0;
+   assign tRAS2_ = to_nvmm ? tRAS2 :'h0;
 
   mig_7series_v4_2_bank_compare #
     (/*AUTOINSTPARAM*/
@@ -343,7 +336,7 @@ module mig_7series_v4_2_bank_cntrl #
      .nBANK_MACHS                       (nBANK_MACHS),
      .nCK_PER_CLK                       (nCK_PER_CLK),
      .nOP_WAIT                          (nOP_WAIT),
-     //.nRAS_CLKS                         (nRAS_CLKS),
+     .nRAS_CLKS                         (nRAS_CLKS),
      .nRP                               (nRP),
      .nRTP                              (nRTP),
      .nRCD                              (nRCD),
@@ -426,12 +419,10 @@ module mig_7series_v4_2_bank_cntrl #
        .inhbt_rd                        (inhbt_rd[RANKS-1:0]),
        .inhbt_wr                        (inhbt_wr[RANKS-1:0]),
        .dq_busy_data                    (dq_busy_data),
-       .lat_fr(lat_fr_),
-       .lat_fw(lat_fw_),
-       .cnt_act(cnt_act),
-       .cnt_pre(cnt_pre),
+       .tRCD2(tRCD2_),
+       .tRP2(tRP2_),
+       .tRAS2(tRAS2_),
        .to_nvmm(to_nvmm),
-       .nRAS_CLKS(nRAS_CLKS_),
        .maint_req_r(maint_req_r)
        );
 

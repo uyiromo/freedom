@@ -69,96 +69,123 @@
 
 module vc707mig4gb (
   // Inouts
-  inout [63:0]       ddr3_dq,
-  inout [7:0]        ddr3_dqs_n,
-  inout [7:0]        ddr3_dqs_p,
+  inout [63:0]  ddr3_dq,
+  inout [7:0]   ddr3_dqs_n,
+  inout [7:0]   ddr3_dqs_p,
   // Outputs
-  output [15:0]     ddr3_addr,
-  output [2:0]        ddr3_ba,
-  output            ddr3_ras_n,
-  output            ddr3_cas_n,
-  output            ddr3_we_n,
-  output            ddr3_reset_n,
-  output [0:0]       ddr3_ck_p,
-  output [0:0]       ddr3_ck_n,
-  output [0:0]       ddr3_cke,
-  output [0:0]        ddr3_cs_n,
-  output [7:0]     ddr3_dm,
-  output [0:0]       ddr3_odt,
+  output [15:0] ddr3_addr,
+  output [2:0]  ddr3_ba,
+  output        ddr3_ras_n,
+  output        ddr3_cas_n,
+  output        ddr3_we_n,
+  output        ddr3_reset_n,
+  output [0:0]  ddr3_ck_p,
+  output [0:0]  ddr3_ck_n,
+  output [0:0]  ddr3_cke,
+  output [0:0]  ddr3_cs_n,
+  output [7:0]  ddr3_dm,
+  output [0:0]  ddr3_odt,
   // Inputs
   // Single-ended system clock
-  input             sys_clk_i,
+  input         sys_clk_i,
   // user interface signals
-  output            ui_clk,
-  output            ui_clk_sync_rst,
-  output            mmcm_locked,
+  output        ui_clk,
+  output        ui_clk_sync_rst,
+  output        mmcm_locked,
   input         aresetn,
   input         app_sr_req,
   input         app_ref_req,
   input         app_zq_req,
-  output            app_sr_active,
-  output            app_ref_ack,
-  output            app_zq_ack,
+  output        app_sr_active,
+  output        app_ref_ack,
+  output        app_zq_ack,
   // Slave Interface Write Address Ports
-  input [3:0]           s_axi_awid,
-  input [31:0]         s_axi_awaddr,
-  input [7:0]           s_axi_awlen,
-  input [2:0]           s_axi_awsize,
-  input [1:0]           s_axi_awburst,
-  input [0:0]           s_axi_awlock,
-  input [3:0]           s_axi_awcache,
-  input [2:0]           s_axi_awprot,
-  input [3:0]           s_axi_awqos,
+  input [3:0]   s_axi_awid,
+  input [31:0]  s_axi_awaddr,
+  input [7:0]   s_axi_awlen,
+  input [2:0]   s_axi_awsize,
+  input [1:0]   s_axi_awburst,
+  input [0:0]   s_axi_awlock,
+  input [3:0]   s_axi_awcache,
+  input [2:0]   s_axi_awprot,
+  input [3:0]   s_axi_awqos,
   input         s_axi_awvalid,
-  output            s_axi_awready,
+  output        s_axi_awready,
   // Slave Interface Write Data Ports
-  input [63:0]         s_axi_wdata,
-  input [7:0]         s_axi_wstrb,
+  input [63:0]  s_axi_wdata,
+  input [7:0]   s_axi_wstrb,
   input         s_axi_wlast,
   input         s_axi_wvalid,
-  output            s_axi_wready,
+  output        s_axi_wready,
   // Slave Interface Write Response Ports
   input         s_axi_bready,
-  output [3:0]          s_axi_bid,
-  output [1:0]          s_axi_bresp,
-  output            s_axi_bvalid,
+  output [3:0]  s_axi_bid,
+  output [1:0]  s_axi_bresp,
+  output        s_axi_bvalid,
   // Slave Interface Read Address Ports
-  input [3:0]           s_axi_arid,
-  input [31:0]         s_axi_araddr,
-  input [7:0]           s_axi_arlen,
-  input [2:0]           s_axi_arsize,
-  input [1:0]           s_axi_arburst,
-  input [0:0]           s_axi_arlock,
-  input [3:0]           s_axi_arcache,
-  input [2:0]           s_axi_arprot,
-  input [3:0]           s_axi_arqos,
+  input [3:0]   s_axi_arid,
+  input [31:0]  s_axi_araddr,
+  input [7:0]   s_axi_arlen,
+  input [2:0]   s_axi_arsize,
+  input [1:0]   s_axi_arburst,
+  input [0:0]   s_axi_arlock,
+  input [3:0]   s_axi_arcache,
+  input [2:0]   s_axi_arprot,
+  input [3:0]   s_axi_arqos,
   input         s_axi_arvalid,
-  output            s_axi_arready,
+  output        s_axi_arready,
   // Slave Interface Read Data Ports
   input         s_axi_rready,
-  output [3:0]          s_axi_rid,
-  output [63:0]            s_axi_rdata,
-  output [1:0]          s_axi_rresp,
-  output            s_axi_rlast,
-  output            s_axi_rvalid,
-  output            init_calib_complete,
-  output [11:0]                                device_temp,
+  output [3:0]  s_axi_rid,
+  output [63:0] s_axi_rdata,
+  output [1:0]  s_axi_rresp,
+  output        s_axi_rlast,
+  output        s_axi_rvalid,
+  output        init_calib_complete,
+  output [11:0] device_temp,
 `ifdef SKIP_CALIB
-   output                                      calib_tap_req,
-   input                                       calib_tap_load,
-   input [6:0]                                 calib_tap_addr,
-   input [7:0]                                 calib_tap_val,
-   input                                       calib_tap_load_done,
+  output        calib_tap_req,
+  input         calib_tap_load,
+  input [6:0]   calib_tap_addr,
+  input [7:0]   calib_tap_val,
+  input         calib_tap_load_done,
 `endif
   
-  input			sys_rst,
+  input         sys_rst,
 
-  input  [ 7:0] lat_fr,
-  input  [ 7:0] lat_fw,
-  output [63:0] cnt_act,
-  output [63:0] cnt_pre,
-  input  [2:0]  nvmm_begin
+  input  [ 7:0] tRCD2,
+  input  [ 7:0] tRP2,
+  input  [10:0] tRAS2,
+  input  [ 2:0] nvmm_begin,
+  output [63:0] cnt_act
   );
+
+   reg [7:0]    tRCD2_r;
+   reg [7:0]    tRP2_r;
+   reg [10:0]   tRAS2_r;
+   reg [2:0]    nvmm_begin_r;
+   reg [63:0]   cnt_act_r;
+
+   wire [7:0]    tRCD2_i;
+   wire [7:0]    tRP2_i;
+   wire [10:0]   tRAS2_i;
+   wire [2:0]    nvmm_begin_i;
+   wire [63:0]   cnt_act_i;
+
+   assign tRCD2_i      = tRCD2_r;
+   assign tRP2_i       = tRP2_r;
+   assign tRAS2_i      = tRAS2_r;
+   assign nvmm_begin_i = nvmm_begin_r;
+   assign cnt_act      = cnt_act_r;
+
+   always @( posedge sys_clk_i )
+   begin
+      tRCD2_r      <= tRCD2;
+      tRP2_r       <= tRP2;
+      tRAS2_r      <= tRAS2;
+      nvmm_begin_r <= nvmm_begin;
+      cnt_act_r    <= cnt_act_i;
+   end
 
 // Start of IP top instance
   vc707mig4gb_mig u_vc707mig4gb_mig (
@@ -245,11 +272,11 @@ module vc707mig4gb (
        .calib_tap_load_done              (calib_tap_load_done),
        `endif
     .sys_rst                        (sys_rst),
-    .lat_fr(lat_fr),
-    .lat_fw(lat_fw),
-    .cnt_act(cnt_act),
-    .cnt_pre(cnt_pre),
-    .nvmm_begin(nvmm_begin)
+    .tRCD2(tRCD2_i),
+    .tRP2(tRP2_i),
+    .tRAS2(tRAS2_i),
+    .nvmm_begin(nvmm_begin_i),
+    .cnt_act(cnt_act_i)
     );
 // End of IP top instance
 

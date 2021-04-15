@@ -676,12 +676,31 @@ module vc707mig4gb_mig #
    // System reset polarity will change based on the option 
    // selected in GUI.
    input                                        sys_rst,
-   input  [ 7:0] lat_fr,
-   input  [ 7:0] lat_fw,
+   input  [ 7:0] tRCD2,
+   input  [ 7:0] tRP2,
+   input  [10:0] tRAS2,
    output [63:0] cnt_act,
-   output [63:0] cnt_pre,
    input  [2:0]  nvmm_begin
    );
+
+   reg  [ 7:0] tRCD2_r;
+   reg  [ 7:0] tRP2_r;
+   reg  [10:0] tRAS2_r;
+   wire [ 7:0] tRCD2_i;
+   wire [ 7:0] tRP2_i;
+   wire [10:0] tRAS2_i;
+
+   assign tRCD2_i = tRCD2_r;
+   assign tRP2_i  = tRP2_r;
+   assign tRAS2_i = tRAS2_r;
+
+   always @( posedge sys_clk_i )
+   begin
+      tRCD2_r <= tRCD2;
+      tRP2_r  <= tRP2;
+      tRAS2_r <= tRAS2;
+   end
+
 
   function integer clogb2 (input integer size);
     begin
@@ -1357,10 +1376,10 @@ module vc707mig4gb_mig #
        .interrupt                        (interrupt),
        .init_calib_complete              (init_calib_complete),
        .dbg_poc                          (),
-       .lat_fr(lat_fr),
-       .lat_fw(lat_fw),
+       .tRCD2(tRCD2_i),
+       .tRP2(tRP2_i),
+       .tRAS2(tRAS2_i),
        .cnt_act(cnt_act),
-       .cnt_pre(cnt_pre),
        .nvmm_begin(nvmm_begin)
        );
 

@@ -152,7 +152,7 @@ module mig_7series_v4_2_bank_state #
    parameter nBANK_MACHS              = 4,
    parameter nCK_PER_CLK              = 2,
    parameter nOP_WAIT                 = 0,
-   //parameter nRAS_CLKS                = 10,
+   parameter nRAS_CLKS                = 10,
    parameter nRP                      = 10,
    parameter nRTP                     = 4,
    parameter nRCD                     = 5,
@@ -181,15 +181,13 @@ module mig_7series_v4_2_bank_state #
   q_has_priority, req_priority_r, idle_ns, demand_priority_in, inhbt_rd,
   inhbt_wr, dq_busy_data, rnk_config_strobe, rnk_config_valid_r, rnk_config,
   rnk_config_kill_rts_col, phy_mc_cmd_full, phy_mc_ctl_full, phy_mc_data_full,
-   lat_fr, lat_fw, cnt_act, cnt_pre, to_nvmm, nRAS_CLKS, maint_req_r
+   tRCD2, tRP2, tRAS2, to_nvmm, maint_req_r
   );
 
-   input  [ 7:0]  lat_fr;
-   input  [ 7:0]  lat_fw;
-   output [63:0]  cnt_act;
-   output [63:0]  cnt_pre;
+   input  [ 7:0]  tRCD2;
+   input  [ 7:0]  tRP2;
+   input  [10:0]  tRAS2;
    input          to_nvmm;
-   input  [10:0]  nRAS_CLKS;
    input          maint_req_r;
 
 
@@ -285,7 +283,7 @@ module mig_7series_v4_2_bank_state #
         else begin
           rcd_timer_ns = rcd_timer_r;
           //if (start_rcd_lcl) rcd_timer_ns = nRCD_CLKS_M2[RCD_TIMER_WIDTH-1:0];
-          if (start_rcd_lcl) rcd_timer_ns = nRCD_CLKS_M2[RCD_TIMER_WIDTH-1:0] + lat_fr;
+          if (start_rcd_lcl) rcd_timer_ns = nRCD_CLKS_M2[RCD_TIMER_WIDTH-1:0] + tRCD2;
           else if (|rcd_timer_r) rcd_timer_ns =
                                    rcd_timer_r - ONE[RCD_TIMER_WIDTH-1:0];
         end
@@ -374,7 +372,7 @@ module mig_7series_v4_2_bank_state #
       ras_timer_ns = ras_timer_r;
 
       if (start_rcd_lcl) ras_timer_ns =
-           nRAS_CLKS[RAS_TIMER_WIDTH-1:0] - TWO[RAS_TIMER_WIDTH-1:0];
+           nRAS_CLKS[RAS_TIMER_WIDTH-1:0] + tRAS2 - TWO[RAS_TIMER_WIDTH-1:0];
       if (start_wtp_timer) ras_timer_ns =
             // As the timer is being reused, it is essential to compare
             // before new value is loaded.
@@ -544,7 +542,7 @@ module mig_7series_v4_2_bank_state #
         else begin
           rp_timer_ns = rp_timer_r;
           //if (start_pre) rp_timer_ns = nRP_CLKS_M2[RP_TIMER_WIDTH-1:0];
-          if (start_pre) rp_timer_ns = nRP_CLKS_M2[RP_TIMER_WIDTH-1:0] + lat_fw;
+          if (start_pre) rp_timer_ns = nRP_CLKS_M2[RP_TIMER_WIDTH-1:0] + tRP2;
           else if (|rp_timer_r) rp_timer_ns =
                                   rp_timer_r - ONE[RP_TIMER_WIDTH-1:0];
         end
@@ -919,24 +917,4 @@ module mig_7series_v4_2_bank_state #
   output reg [RANKS-1:0] rd_this_rank_r;
   always @(posedge clk) rd_this_rank_r <= #TCQ rd_this_rank_ns;
 
-   reg    [63:0]    cnt_act_;
-   reg    [63:0]    cnt_pre_;
-
-   assign cnt_act = cnt_act_;
-   assign cnt_pre = cnt_pre_;
-
-   always @( posedge clk )
-   begin
-      if ( rst )
-      begin
-         cnt_act_ <= 0;
-         cnt_pre_ <= 0;
-      end
-
-      if ( to_nvmm & start_rcd_lcl )
-        cnt_act_ <= cnt_act_ + 1'b1;
-
-      if ( to_nvmm & start_pre )
-        cnt_pre_ <= cnt_pre_ + 1'b1;
-   end
 endmodule // bank_state

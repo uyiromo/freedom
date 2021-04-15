@@ -189,100 +189,94 @@ module mig_7series_v4_2_bank_mach #
   input [7:0]           slot_0_present,         // To bank_common0 of bank_common.v, ...
   input [7:0]           slot_1_present,         // To bank_common0 of bank_common.v, ...
   input                 use_addr,
-  input  [ 7:0] lat_fr,
-  input  [ 7:0] lat_fw,
+  input  [ 7:0] tRCD2,
+  input  [ 7:0] tRP2,
+  input  [10:0] tRAS2,
   output [63:0] cnt_act,
-  output [63:0] cnt_pre,
   input  [2:0]  nvmm_begin
   );
 
-   // accumurate cnt_act/pre from all banks
-   reg [63:0]    cnt_act_r;
-   reg [63:0]    cnt_act_ns;
-   reg [63:0]    cnt_pre_r;
-   reg [63:0]    cnt_pre_ns;
-   wire [511:0]   cnt_act_;
-   wire [511:0]   cnt_pre_;
+  /* counter for ACT/PRE
+   * | CMD | cs# | RAS# | CAS# | WE# | Note |
+   * | REF | L   | L    | L    | H   |      |
+   * | PRE | L   | L    | H    | L   | A10 = L, refer BA |
+   * | PRE | L   | L    | H    | L   | A10 = H, all bank |
+   * | ACT | L   | L    | H    | H   |      |
+   * | WR  | L   | H    | L    | L   |      |
+   * | RD  | L   | H    | L    | H   |      |
+   */
 
-   /* generate multiple registers to meet timing constraints */
+   localparam REF = 4'b0001;
+   localparam PRE = 4'b0010;
+   localparam ACT = 4'b0011;
+   localparam WR  = 4'b0100;
+   localparam RD  = 4'b0101;
 
-   assign cnt_act = cnt_act_r;
+   wire [3:0]            cmd0, cmd1, cmd2, cmd3;
+   wire [BANK_WIDTH-1:0] ba0, ba1, ba2, ba3;
+   wire                  to_nvmm0, to_nvmm1, to_nvmm2, to_nvmm3;
+
+   assign cmd0 = { mc_cs_n[0], mc_ras_n[0], mc_cas_n[0], mc_we_n[0] };
+   assign cmd1 = { mc_cs_n[1], mc_ras_n[1], mc_cas_n[1], mc_we_n[1] };
+   assign cmd2 = { mc_cs_n[2], mc_ras_n[2], mc_cas_n[2], mc_we_n[2] };
+   assign cmd3 = { mc_cs_n[3], mc_ras_n[3], mc_cas_n[3], mc_we_n[3] };
+   assign {ba3, ba2, ba1, ba0} = mc_bank;
+   assign to_nvmm0 = (ba0 >= nvmm_begin_r);
+   assign to_nvmm1 = (ba1 >= nvmm_begin_r);
+   assign to_nvmm2 = (ba2 >= nvmm_begin_r);
+   assign to_nvmm3 = (ba3 >= nvmm_begin_r);
+
+
+   wire [2:0] nvmm_begin_i;
+   reg [ 2:0] nvmm_begin_r;
+   reg [63:0] cnt_act_r;
+   reg [ 7:0] bank_dirty_r;
+   wire [7:0] bank_dirty;
+
+   assign nvmm_begin_i = nvmm_begin_r;
+   assign bank_dirty   = bank_dirty_r;
+   assign cnt_act      = cnt_act_r;
+
    always @( posedge clk )
    begin
-      if ( rst )
-        cnt_act_ns <= 0;
-      else
-      begin
-         cnt_act_ns <= cnt_act_[ 63:  0]
-                     + cnt_act_[127: 64]
-                     + cnt_act_[191:128]
-                     + cnt_act_[255:192]
-                     + cnt_act_[319:256]
-                     + cnt_act_[383:320]
-                     + cnt_act_[447:384]
-                     + cnt_act_[511:448];
-
-         cnt_act_r <= cnt_act_ns;
-      end
+      nvmm_begin_r <= nvmm_begin;
    end
 
-/*
-   assign cnt_pre = cnt_pre_r;
+
    always @( posedge clk )
    begin
       if ( rst )
-        cnt_pre_ns <= 0;
-      else
       begin
-         cnt_pre_ns <= cnt_pre_[ 63:  0]
-                     + cnt_pre_[127: 64]
-                     + cnt_pre_[191:128]
-                     + cnt_pre_[255:192]
-                     + cnt_pre_[319:256]
-                     + cnt_pre_[383:320]
-                     + cnt_pre_[447:384]
-                     + cnt_pre_[511:448];
-
-         cnt_pre_r <= cnt_pre_ns;
+         bank_dirty_r <= 0;
+         cnt_act_r  <= 0;
       end
-   end
-*/
-   // manage row is dirty or not
-   //   command   | cs# | ras# | cas# | we# |
-   //   Activate  |  L  |   L  |   H  |  H  |
-   //   Write     |  L  |   H  |   L  |  L  |
-   // activated bank will be "clean"
-   //  written  bank will be "dirty"
-
-   wire [7:0] bank_dirty_;
-   reg [7:0] bank_dirty;
-   assign bank_dirty_ = bank_dirty;
-
-   always @( posedge clk )
-   begin
-      if ( rst )
-        bank_dirty <= 8'h0;
       else
       begin
-         if (!mc_cs_n[0] & !mc_ras_n[0] & mc_cas_n[0] & mc_we_n[0])
-           bank_dirty[mc_bank[2:0]] = 1'b0;
-         else if (!mc_cs_n[0] & mc_ras_n[0] & !mc_cas_n[0] & !mc_we_n[0])
-           bank_dirty[mc_bank[2:0]] = 1'b1;
+         cnt_act_r <= cnt_act_r
+                   + (( to_nvmm0 ) & ( cmd0 == ACT ))
+                   + (( to_nvmm1 ) & ( cmd1 == ACT ))
+                   + (( to_nvmm2 ) & ( cmd2 == ACT ))
+                   + (( to_nvmm3 ) & ( cmd3 == ACT ));
 
-         if (!mc_cs_n[1] & !mc_ras_n[1] & mc_cas_n[1] & mc_we_n[1])
-           bank_dirty[mc_bank[5:3]] = 1'b0;
-         else if (!mc_cs_n[1] & mc_ras_n[1] & !mc_cas_n[1] & !mc_we_n[1])
-           bank_dirty[mc_bank[5:3]] = 1'b1;
+         if ( cmd0 == ACT )
+           bank_dirty_r[ba0] = 1'b0;
+         else if ( cmd0 == WR )
+           bank_dirty_r[ba0] = 1'b1;
 
-         if (!mc_cs_n[2] & !mc_ras_n[2] & mc_cas_n[2] & mc_we_n[2])
-           bank_dirty[mc_bank[8:6]] = 1'b0;
-         else if (!mc_cs_n[2] & mc_ras_n[2] & !mc_cas_n[2] & !mc_we_n[2])
-           bank_dirty[mc_bank[8:6]] = 1'b1;
+         if ( cmd1 == ACT )
+           bank_dirty_r[ba1] = 1'b0;
+         else if ( cmd1 == WR )
+           bank_dirty_r[ba1] = 1'b1;
 
-         if (!mc_cs_n[3] & !mc_ras_n[3] & mc_cas_n[3] & mc_we_n[3])
-           bank_dirty[mc_bank[11:9]] = 1'b0;
-         else if (!mc_cs_n[3] & mc_ras_n[3] & !mc_cas_n[3] & !mc_we_n[3])
-           bank_dirty[mc_bank[11:9]] = 1'b1;
+         if ( cmd2 == ACT )
+           bank_dirty_r[ba2] = 1'b0;
+         else if ( cmd2 == WR )
+           bank_dirty_r[ba2] = 1'b1;
+
+         if ( cmd3 == ACT )
+           bank_dirty_r[ba3] = 1'b0;
+         else if ( cmd3 == WR )
+           bank_dirty_r[ba3] = 1'b1;
       end
    end
 
@@ -517,12 +511,11 @@ module mig_7series_v4_2_bank_mach #
          .use_addr                      (use_addr),
          .was_priority                  (was_priority),
          .was_wr                        (was_wr),
-         .lat_fr(lat_fr),
-         .lat_fw(lat_fw),
-         .cnt_act(cnt_act_[(ID+1)*64-1:(ID)*64]),
-         .cnt_pre(cnt_pre_[(ID+1)*64-1:(ID)*64]),
-         .nvmm_begin(nvmm_begin),
-         .bank_dirty(bank_dirty_)
+         .tRCD2(tRCD2),
+         .tRP2(tRP2),
+         .tRAS2(tRAS2),
+         .nvmm_begin(nvmm_begin_i),
+         .bank_dirty(bank_dirty)
     );
     end
   endgenerate
