@@ -163,6 +163,7 @@ class WithDevKitFrequency(MHz: Double) extends Config((site, here, up) => {
 
 class WithDevKit25MHz extends WithDevKitFrequency(25)
 class WithDevKit50MHz extends WithDevKitFrequency(50)
+class WithDevKit80MHz extends WithDevKitFrequency(80)
 class WithDevKit100MHz extends WithDevKitFrequency(100)
 class WithDevKit125MHz extends WithDevKitFrequency(125)
 class WithDevKit150MHz extends WithDevKitFrequency(150)

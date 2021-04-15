@@ -44,9 +44,11 @@ $(FIRRTL_JAR): $(shell find $(rocketchip_dir)/firrtl/src/main/scala -iname "*.sc
 	cp -p $(FIRRTL_JAR) $(rocketchip_dir)/chisel3/lib
 
 # Build .fir
+devkitconfigs := $(base_dir)/src/main/scala/unleashed/DevKitConfigs.scala
 firrtl := $(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).fir
 $(firrtl): $(shell find $(base_dir)/src/main/scala -name '*.scala') $(FIRRTL_JAR)
 	mkdir -p $(dir $@)
+	sed -i -re "s/new WithNBigCores\([0-9]\)/new WithNBigCores($(NUM_CORES))/" $(devkitconfigs)
 	$(SBT) "runMain freechips.rocketchip.system.Generator $(BUILD_DIR) $(PROJECT) $(MODEL) $(CONFIG_PROJECT) $(CONFIG)"
 
 .PHONY: firrtl
