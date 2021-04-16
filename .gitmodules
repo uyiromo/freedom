@@ -1,12 +1,12 @@
 [submodule "rocket-chip"]
 	path = rocket-chip
-	url = https://github.com/ucb-bar/rocket-chip.git
+	url = https://github.com/uyiromo/rocket-chip.git
 [submodule "sifive-blocks"]
 	path = sifive-blocks
-	url = https://github.com/sifive/sifive-blocks.git
+	url = https://github.com/uyiromo/sifive-blocks.git
 [submodule "fpga-shells"]
 	path = fpga-shells
-	url = https://github.com/sifive/fpga-shells.git
+	url = https://github.com/uyiromo/fpga-shells.git
 [submodule "nvidia-dla-blocks"]
 	path = nvidia-dla-blocks
 	url = https://github.com/sifive/nvidia-dla-blocks.git
@@ -15,4 +15,4 @@
 	url = https://github.com/uyiromo/freedom-u540-c000-bootloader
 [submodule "sifive-cache"]
 	path = sifive-cache
-	url = https://github.com/sifive/block-inclusivecache-sifive
+	url = https://github.com/uyiromo/block-inclusivecache-sifive
