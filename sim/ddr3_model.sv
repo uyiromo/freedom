@@ -1,5 +1,3 @@
-//`define MAX_MEM
-
 /****************************************************************************************
 *
 *    File Name:  ddr3.v
@@ -96,9 +94,12 @@
 // model flags
 // `define MODEL_PASR
 //Memory Details
-`define x1Gb
+`define x4Gb
 `define sg125
 `define x8
+`define MAX_MEM
+`define mem_init
+`define MEM_INIT_TXT "/sim/mem_init.txt"
 module ddr3_model (
     rst_n,
     ck,
@@ -120,6 +121,7 @@ module ddr3_model (
 
     `include "ddr3_model_parameters.vh"
 
+    parameter DEVICE_ID = 0;            // to specify the index in 8 memory devices
     parameter check_strict_mrbits = 1;
     parameter check_strict_timing = 1;
     parameter feature_pasr = 1;
@@ -406,14 +408,16 @@ module ddr3_model (
         reg [BA_BITS - 1 : 0] bank;
         reg [ROW_BITS - 1 : 0] row;
         reg [COL_BITS - 1 : 0] col;
-        reg [BA_BITS + ROW_BITS + COL_BITS - 1 : 0] addr;
-        reg [BL_MAX * DQ_BITS - 1 : 0] data;
+        //reg [BA_BITS + ROW_BITS + COL_BITS - 1 : 0] addr;
+        reg [31:0] addr;
+        reg [BL_MAX * DQ_BITS - 1 : 0] data;              // [63:0] data
+        reg [8 * BL_MAX * DQ_BITS - 1 : 0] data512;
         string _char;
         integer in, fio_status;
 
         if (!$value$plusargs("model_data+%s", tmp_model_dir))
         begin
-            tmp_model_dir = "/tmp";
+            tmp_model_dir = ".";
             $display(
                 "%m: at time %t WARNING: no +model_data option specified, using /tmp.",
                 $time
@@ -425,9 +429,20 @@ module ddr3_model (
 
         // Preload section
     `ifdef mem_init
-        in = $fopen("mem_init.txt","r");
+        in = $fopen(`MEM_INIT_TXT,"r");
         while (! $feof(in)) begin
-            fio_status = $fscanf(in, "%h %s %h", addr, _char, data);
+            fio_status = $fscanf(in, "%h %h", addr, data512);
+            addr = addr[31:3];
+            //data = data512[BL_MAX*DQ_BITS*DEVICE_ID +: BL_MAX*DQ_BITS];
+            data = { data512[448+DEVICE_ID*DQ_BITS +: DQ_BITS],
+                     data512[384+DEVICE_ID*DQ_BITS +: DQ_BITS],
+                     data512[320+DEVICE_ID*DQ_BITS +: DQ_BITS],
+                     data512[256+DEVICE_ID*DQ_BITS +: DQ_BITS],
+                     data512[192+DEVICE_ID*DQ_BITS +: DQ_BITS],
+                     data512[128+DEVICE_ID*DQ_BITS +: DQ_BITS],
+                     data512[ 64+DEVICE_ID*DQ_BITS +: DQ_BITS],
+                     data512[  0+DEVICE_ID*DQ_BITS +: DQ_BITS]
+                     };
             if (fio_status != -1) begin // Check for blank line or EOF
                 bank = addr [BA_BITS + ROW_BITS + COL_BITS - 1 : ROW_BITS + COL_BITS];
                 row = addr [ROW_BITS + COL_BITS - 1 : COL_BITS];
@@ -616,7 +631,7 @@ module ddr3_model (
         integer fd;
         reg [2048:1] filename;
         begin 
-            $sformat( filename, "%0s/%m.%0d", tmp_model_dir, bank );
+            $sformat( filename, "%0s/%m.%0d.%0d", tmp_model_dir, DEVICE_ID, bank );
 
             fd = $fopen(filename, "wb+");
             if (fd == 0)

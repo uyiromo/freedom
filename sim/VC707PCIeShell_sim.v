@@ -293,7 +293,8 @@ module VC707PCIeShell_sim;
   generate
     for (r = 0; r < CS_WIDTH; r = r + 1) begin: mem_rnk
       for (i = 0; i < NUM_COMP; i = i + 1) begin: gen_mem
-        ddr3_model u_comp_ddr3
+        ddr3_model #( .DEVICE_ID(r*CS_WIDTH+i) )
+         u_comp_ddr3
           (
            .rst_n   (ddr3_reset_n),
            .ck      (ddr3_ck_p_sdram[(i*MEMORY_WIDTH)/72]),
