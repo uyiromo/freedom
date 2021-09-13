@@ -16,3 +16,6 @@
 [submodule "sifive-cache"]
 	path = sifive-cache
 	url = https://github.com/uyiromo/block-inclusivecache-sifive
+[submodule "ILA"]
+	path = ILA
+	url = https://github.com/uyiromo/ILA.git
