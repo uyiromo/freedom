@@ -26,13 +26,18 @@ lazy val ila = (project in file("ILA")).
   dependsOn(rocketChip).
   settings(commonSettings: _*)
 
+lazy val openmpe = (project in file("OpenMPE")).
+  dependsOn(rocketChip, ila).
+  settings(commonSettings: _*).
+  settings(addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full))
+
 lazy val sifiveBlocks = (project in file("sifive-blocks")).
   dependsOn(rocketChip).
   settings(commonSettings: _*).
   settings(addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full))
 
 lazy val sifiveCache = (project in file("sifive-cache")).
-  dependsOn(rocketChip).
+  dependsOn(rocketChip, openmpe).
   settings(commonSettings: _*)
 
 lazy val nvdlaBlocks = (project in file("nvidia-dla-blocks")).
@@ -40,9 +45,9 @@ lazy val nvdlaBlocks = (project in file("nvidia-dla-blocks")).
   settings(commonSettings: _*)
 
 lazy val fpgaShells = (project in file("fpga-shells")).
-  dependsOn(rocketChip, sifiveBlocks).
+  dependsOn(rocketChip, sifiveBlocks, openmpe).
   settings(commonSettings: _*)
 
 lazy val freedomPlatforms = (project in file(".")).
-  dependsOn(rocketChip, sifiveBlocks, sifiveCache, nvdlaBlocks, fpgaShells).
+  dependsOn(rocketChip, sifiveBlocks, sifiveCache, nvdlaBlocks, fpgaShells, openmpe).
   settings(commonSettings: _*)

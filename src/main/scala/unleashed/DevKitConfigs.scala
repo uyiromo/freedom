@@ -19,9 +19,12 @@ class FreedomU500Config extends Config(
   new WithJtagDTM            ++
   new WithNMemoryChannels(1) ++
   new WithExtMemSize(0x100000000L) ++
-  new WithInclusiveCache     ++       // use Sifive L2 cache
-  new WithL1DCacheWays(8)    ++
-  new WithNBigCores(4)       ++
+  new WithInclusiveCache(nWays=16, capacityKB=2048) ++  // Sifive L2 cache (default: 512 KiB, 8-way)
+  new WithL1ICacheWays(4)    ++  // nWays (default: 4)
+  new WithL1ICacheSets(64)   ++  // nSets (default: 64)
+  new WithL1DCacheWays(8)    ++  // nWays (default: 4)
+  new WithL1DCacheSets(64)   ++  // nSets (default: 64)
+   new WithNBigCores(4)       ++
   new BaseConfig
 )
 
@@ -34,7 +37,7 @@ class U500DevKitPeripherals extends Config((site, here, up) => {
   case PeripheryGPIOKey => List(
     GPIOParams(address = BigInt(0x64002000L), width = 4))
   case PeripheryMaskROMKey => List(
-    MaskROMParams(address = 0x78000000L, depth = 0x1000, name = "BootROM"))
+    MaskROMParams(address = 0x78000000L, depth = 0x1e0000, name = "BootROM"))
   case PeripheryNVMMCTRKey => Some(NVMMCTRParams(address = 0x64003000L))
 })
 

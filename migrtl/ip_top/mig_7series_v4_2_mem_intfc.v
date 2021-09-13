@@ -395,12 +395,38 @@ module mig_7series_v4_2_mem_intfc #
    ,output [6*DQS_WIDTH*RANKS-1:0]      dbg_prbs_first_edge_taps
    ,output [6*DQS_WIDTH*RANKS-1:0]      dbg_prbs_second_edge_taps
    ,output [1023:0]          dbg_poc
-   ,input  [ 7:0] tRCD2
-   ,input  [ 7:0] tRP2
-   ,input  [10:0] tRAS2
-   ,output [63:0] cnt_act
-   ,input  [2:0]  nvmm_begin
+   ,input  [ 4:0] tRCD2
+   ,input  [ 4:0] tRP2
+   ,input  [ 2:0] nvmm_begin
+   ,input  [ 7:0] bank_dirty
+   //,output        ddr_clock
+   ,output [ 6:0] ddr_cmd
    );
+
+   reg [ 4:0] tRCD2_r;
+   reg [ 4:0] tRP2_r;
+   //reg [2:0]  nvmm_begin_r;
+   //reg [ 7:0] bank_dirty_r;
+
+   wire [ 4:0] tRCD2_i;
+   wire [ 4:0] tRP2_i;
+   wire [ 2:0]  nvmm_begin_i;
+   wire [ 7:0] bank_dirty_i;
+
+   assign tRCD2_i      = tRCD2_r;
+   assign tRP2_i       = tRP2_r;
+   assign nvmm_begin_i = nvmm_begin;
+   assign bank_dirty_i = bank_dirty;
+
+   always @( posedge clk )
+   begin
+      tRCD2_r      <= tRCD2;
+      tRP2_r       <= tRP2;
+      //nvmm_begin_r <= nvmm_begin;
+      //bank_dirty_r <= bank_dirty;
+   end
+
+
 
   localparam nSLOTS  = 1 + (|SLOT_1_CONFIG ? 1 : 0);
   localparam SLOT_0_CONFIG_MC = (nSLOTS == 2)? 8'b0000_0101 : 8'b0000_1111;
@@ -461,6 +487,7 @@ module mig_7series_v4_2_mem_intfc #
   // assigning CWL = CL -1 for DDR2. DDR2 customers will not know anything
   // about CWL. There is also nCWL parameter. Need to clean it up.
   localparam CWL_T = (DRAM_TYPE == "DDR3") ? CWL : CL-1;
+
 
   assign init_calib_complete = init_calib_complete_w;
   assign init_wrcal_complete = init_wrcal_complete_w;
@@ -657,11 +684,10 @@ module mig_7series_v4_2_mem_intfc #
       .fi_xor_we          (fi_xor_we),
       .fi_xor_wrdata          (fi_xor_wrdata),
       .use_addr               (use_addr),
-      .tRCD2(tRCD2),
-      .tRP2(tRP2),
-      .tRAS2(tRAS2),
-      .cnt_act(cnt_act),
-      .nvmm_begin(nvmm_begin)
+      .tRCD2(tRCD2_i),
+      .tRP2(tRP2_i),
+      .nvmm_begin(nvmm_begin_i),
+      .bank_dirty(bank_dirty_i)
 );
 
   // following calculations should be moved inside PHY
@@ -798,6 +824,8 @@ module mig_7series_v4_2_mem_intfc #
        .calib_rd_data_offset_2      (calib_rd_data_offset_2),
        .ddr_ck                      (ddr_ck),
        .ddr_ck_n                    (ddr_ck_n),
+       //.ddr_clock                   (ddr_clock),
+       .ddr_cmd                     (ddr_cmd),
        .ddr_addr                    (ddr_addr),
        .ddr_ba                      (ddr_ba),
        .ddr_ras_n                   (ddr_ras_n),

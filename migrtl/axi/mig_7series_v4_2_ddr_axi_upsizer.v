@@ -146,26 +146,26 @@ module mig_7series_v4_2_ddr_axi_upsizer #
    input  wire [C_AXI_ADDR_WIDTH-1:0]           S_AXI_AWADDR,
    input  wire [8-1:0]                          S_AXI_AWLEN,
    input  wire [3-1:0]                          S_AXI_AWSIZE,
-   input  wire [2-1:0]                          S_AXI_AWBURST,
-   input  wire [2-1:0]                          S_AXI_AWLOCK,
-   input  wire [4-1:0]                          S_AXI_AWCACHE,
-   input  wire [3-1:0]                          S_AXI_AWPROT,
-   input  wire [4-1:0]                          S_AXI_AWREGION,
-   input  wire [4-1:0]                          S_AXI_AWQOS,
-   input  wire [C_AXI_AWUSER_WIDTH-1:0]         S_AXI_AWUSER,
+   //input  wire [2-1:0]                          S_AXI_AWBURST,
+   //input  wire [2-1:0]                          S_AXI_AWLOCK,
+   //input  wire [4-1:0]                          S_AXI_AWCACHE,
+   //input  wire [3-1:0]                          S_AXI_AWPROT,
+   //input  wire [4-1:0]                          S_AXI_AWREGION,
+   //input  wire [4-1:0]                          S_AXI_AWQOS,
+   //input  wire [C_AXI_AWUSER_WIDTH-1:0]         S_AXI_AWUSER,
    input  wire                                  S_AXI_AWVALID,
    output wire                                  S_AXI_AWREADY,
    // Slave Interface Write Data Ports
    input  wire [C_S_AXI_DATA_WIDTH-1:0]         S_AXI_WDATA,
    input  wire [C_S_AXI_DATA_WIDTH/8-1:0]       S_AXI_WSTRB,
    input  wire                                  S_AXI_WLAST,
-   input  wire [C_AXI_WUSER_WIDTH-1:0]          S_AXI_WUSER,
+   //input  wire [C_AXI_WUSER_WIDTH-1:0]          S_AXI_WUSER,
    input  wire                                  S_AXI_WVALID,
    output wire                                  S_AXI_WREADY,
    // Slave Interface Write Response Ports
    output wire [C_AXI_ID_WIDTH-1:0]             S_AXI_BID,
-   output wire [2-1:0]                          S_AXI_BRESP,
-   output wire [C_AXI_BUSER_WIDTH-1:0]          S_AXI_BUSER,
+   //output wire [2-1:0]                          S_AXI_BRESP,
+   //output wire [C_AXI_BUSER_WIDTH-1:0]          S_AXI_BUSER,
    output wire                                  S_AXI_BVALID,
    input  wire                                  S_AXI_BREADY,
    // Slave Interface Read Address Ports
@@ -173,21 +173,21 @@ module mig_7series_v4_2_ddr_axi_upsizer #
    input  wire [C_AXI_ADDR_WIDTH-1:0]           S_AXI_ARADDR,
    input  wire [8-1:0]                          S_AXI_ARLEN,
    input  wire [3-1:0]                          S_AXI_ARSIZE,
-   input  wire [2-1:0]                          S_AXI_ARBURST,
-   input  wire [2-1:0]                          S_AXI_ARLOCK,
-   input  wire [4-1:0]                          S_AXI_ARCACHE,
-   input  wire [3-1:0]                          S_AXI_ARPROT,
-   input  wire [4-1:0]                          S_AXI_ARREGION,
-   input  wire [4-1:0]                          S_AXI_ARQOS,
-   input  wire [C_AXI_ARUSER_WIDTH-1:0]         S_AXI_ARUSER,
+   //input  wire [2-1:0]                          S_AXI_ARBURST,
+   //input  wire [2-1:0]                          S_AXI_ARLOCK,
+   //input  wire [4-1:0]                          S_AXI_ARCACHE,
+   //input  wire [3-1:0]                          S_AXI_ARPROT,
+   //input  wire [4-1:0]                          S_AXI_ARREGION,
+   //input  wire [4-1:0]                          S_AXI_ARQOS,
+   //input  wire [C_AXI_ARUSER_WIDTH-1:0]         S_AXI_ARUSER,
    input  wire                                  S_AXI_ARVALID,
    output wire                                  S_AXI_ARREADY,
    // Slave Interface Read Data Ports
    output wire [C_AXI_ID_WIDTH-1:0]             S_AXI_RID,
    output wire [C_S_AXI_DATA_WIDTH-1:0]         S_AXI_RDATA,
-   output wire [2-1:0]                          S_AXI_RRESP,
+   //output wire [2-1:0]                          S_AXI_RRESP,
    output wire                                  S_AXI_RLAST,
-   output wire [C_AXI_RUSER_WIDTH-1:0]          S_AXI_RUSER,
+   //output wire [C_AXI_RUSER_WIDTH-1:0]          S_AXI_RUSER,
    output wire                                  S_AXI_RVALID,
    input  wire                                  S_AXI_RREADY,
 
@@ -196,26 +196,26 @@ module mig_7series_v4_2_ddr_axi_upsizer #
    output wire [C_AXI_ADDR_WIDTH-1:0]          M_AXI_AWADDR,
    output wire [8-1:0]                         M_AXI_AWLEN,
    output wire [3-1:0]                         M_AXI_AWSIZE,
-   output wire [2-1:0]                         M_AXI_AWBURST,
-   output wire [2-1:0]                         M_AXI_AWLOCK,
-   output wire [4-1:0]                         M_AXI_AWCACHE,
-   output wire [3-1:0]                         M_AXI_AWPROT,
-   output wire [4-1:0]                         M_AXI_AWREGION,
-   output wire [4-1:0]                         M_AXI_AWQOS,
-   output wire [C_AXI_AWUSER_WIDTH-1:0]        M_AXI_AWUSER,
+   //output wire [2-1:0]                         M_AXI_AWBURST,
+   //output wire [2-1:0]                         M_AXI_AWLOCK,
+   //output wire [4-1:0]                         M_AXI_AWCACHE,
+   //output wire [3-1:0]                         M_AXI_AWPROT,
+   //output wire [4-1:0]                         M_AXI_AWREGION,
+   //output wire [4-1:0]                         M_AXI_AWQOS,
+   //output wire [C_AXI_AWUSER_WIDTH-1:0]        M_AXI_AWUSER,
    output wire                                                   M_AXI_AWVALID,
    input  wire                                                   M_AXI_AWREADY,
    // Master Interface Write Data Ports
    output wire [C_M_AXI_DATA_WIDTH-1:0]    M_AXI_WDATA,
    output wire [C_M_AXI_DATA_WIDTH/8-1:0]  M_AXI_WSTRB,
    output wire                                                   M_AXI_WLAST,
-   output wire [C_AXI_WUSER_WIDTH-1:0]         M_AXI_WUSER,
+   //output wire [C_AXI_WUSER_WIDTH-1:0]         M_AXI_WUSER,
    output wire                                                   M_AXI_WVALID,
    input  wire                                                   M_AXI_WREADY,
    // Master Interface Write Response Ports
    input  wire [C_AXI_ID_WIDTH-1:0]          M_AXI_BID,
-   input  wire [2-1:0]                         M_AXI_BRESP,
-   input  wire [C_AXI_BUSER_WIDTH-1:0]         M_AXI_BUSER,
+   //input  wire [2-1:0]                         M_AXI_BRESP,
+   //input  wire [C_AXI_BUSER_WIDTH-1:0]         M_AXI_BUSER,
    input  wire                                                   M_AXI_BVALID,
    output wire                                                   M_AXI_BREADY,
    // Master Interface Read Address Port
@@ -223,21 +223,21 @@ module mig_7series_v4_2_ddr_axi_upsizer #
    output wire [C_AXI_ADDR_WIDTH-1:0]          M_AXI_ARADDR,
    output wire [8-1:0]                         M_AXI_ARLEN,
    output wire [3-1:0]                         M_AXI_ARSIZE,
-   output wire [2-1:0]                         M_AXI_ARBURST,
-   output wire [2-1:0]                         M_AXI_ARLOCK,
-   output wire [4-1:0]                         M_AXI_ARCACHE,
-   output wire [3-1:0]                         M_AXI_ARPROT,
-   output wire [4-1:0]                         M_AXI_ARREGION,
-   output wire [4-1:0]                         M_AXI_ARQOS,
-   output wire [C_AXI_ARUSER_WIDTH-1:0]        M_AXI_ARUSER,
+   //output wire [2-1:0]                         M_AXI_ARBURST,
+   //output wire [2-1:0]                         M_AXI_ARLOCK,
+   //output wire [4-1:0]                         M_AXI_ARCACHE,
+   //output wire [3-1:0]                         M_AXI_ARPROT,
+   //output wire [4-1:0]                         M_AXI_ARREGION,
+   //output wire [4-1:0]                         M_AXI_ARQOS,
+   //output wire [C_AXI_ARUSER_WIDTH-1:0]        M_AXI_ARUSER,
    output wire                                                   M_AXI_ARVALID,
    input  wire                                                   M_AXI_ARREADY,
    // Master Interface Read Data Ports
    input  wire [C_AXI_ID_WIDTH-1:0]          M_AXI_RID,
    input  wire [C_M_AXI_DATA_WIDTH-1:0]      M_AXI_RDATA,
-   input  wire [2-1:0]                       M_AXI_RRESP,
+   //input  wire [2-1:0]                       M_AXI_RRESP,
    input  wire                               M_AXI_RLAST,
-   input  wire [C_AXI_RUSER_WIDTH-1:0]       M_AXI_RUSER,
+   //input  wire [C_AXI_RUSER_WIDTH-1:0]       M_AXI_RUSER,
    input  wire                               M_AXI_RVALID,
    output wire                               M_AXI_RREADY
    );
@@ -283,26 +283,26 @@ module mig_7series_v4_2_ddr_axi_upsizer #
   wire [C_AXI_ADDR_WIDTH-1:0]        sr_AWADDR    ;   
   wire [8-1:0]                       sr_AWLEN     ;   
   wire [3-1:0]                       sr_AWSIZE    ;   
-  wire [2-1:0]                       sr_AWBURST   ;   
-  wire [2-1:0]                       sr_AWLOCK    ;   
-  wire [4-1:0]                       sr_AWCACHE   ;   
-  wire [3-1:0]                       sr_AWPROT    ;   
-  wire [4-1:0]                       sr_AWREGION  ;   
-  wire [4-1:0]                       sr_AWQOS     ;   
-  wire [C_AXI_AWUSER_WIDTH-1:0]      sr_AWUSER    ;   
+  //wire [2-1:0]                       sr_AWBURST   ;   
+  //wire [2-1:0]                       sr_AWLOCK    ;   
+  //wire [4-1:0]                       sr_AWCACHE   ;   
+  //wire [3-1:0]                       sr_AWPROT    ;   
+  //wire [4-1:0]                       sr_AWREGION  ;   
+  //wire [4-1:0]                       sr_AWQOS     ;   
+  //wire [C_AXI_AWUSER_WIDTH-1:0]      sr_AWUSER    ;   
   wire                               sr_AWVALID   ;   
   wire                               sr_AWREADY   ;   
   wire [C_AXI_ID_WIDTH-1:0]          sr_ARID      ;    
   wire [C_AXI_ADDR_WIDTH-1:0]        sr_ARADDR    ;    
   wire [8-1:0]                       sr_ARLEN     ;    
   wire [3-1:0]                       sr_ARSIZE    ;    
-  wire [2-1:0]                       sr_ARBURST   ;    
-  wire [2-1:0]                       sr_ARLOCK    ;    
-  wire [4-1:0]                       sr_ARCACHE   ;    
-  wire [3-1:0]                       sr_ARPROT    ;    
-  wire [4-1:0]                       sr_ARREGION  ;    
-  wire [4-1:0]                       sr_ARQOS     ;    
-  wire [C_AXI_ARUSER_WIDTH-1:0]      sr_ARUSER    ;    
+  //wire [2-1:0]                       sr_ARBURST   ;    
+  //wire [2-1:0]                       sr_ARLOCK    ;    
+  //wire [4-1:0]                       sr_ARCACHE   ;    
+  //wire [3-1:0]                       sr_ARPROT    ;    
+  //wire [4-1:0]                       sr_ARREGION  ;    
+  //wire [4-1:0]                       sr_ARQOS     ;    
+  //wire [C_AXI_ARUSER_WIDTH-1:0]      sr_ARUSER    ;    
   wire                               sr_ARVALID   ;    
   wire                               sr_ARREADY   ;    
   
@@ -314,15 +314,15 @@ module mig_7series_v4_2_ddr_axi_upsizer #
   
   wire [C_AXI_ID_WIDTH-1:0]          mr_RID       ;  
   wire [C_M_AXI_DATA_WIDTH-1:0]      mr_RDATA     ;  
-  wire [2-1:0]                       mr_RRESP     ;  
+  //wire [2-1:0]                       mr_RRESP     ;  
   wire                               mr_RLAST     ;  
-  wire [C_AXI_RUSER_WIDTH-1:0]       mr_RUSER     ;  
+  //wire [C_AXI_RUSER_WIDTH-1:0]       mr_RUSER     ;  
   wire                               mr_RVALID    ;  
   wire                               mr_RREADY    ;   
   (* max_fanout = 100 *) reg ARESET ;
   
-  assign M_AXI_WUSER   = {C_AXI_WUSER_WIDTH{1'b0}};
-  assign S_AXI_RUSER   = {C_AXI_RUSER_WIDTH{1'b0}};
+  //assign M_AXI_WUSER   = {C_AXI_WUSER_WIDTH{1'b0}};
+  //assign S_AXI_RUSER   = {C_AXI_RUSER_WIDTH{1'b0}};
 
     mig_7series_v4_2_ddr_axi_register_slice #
       (
@@ -344,90 +344,90 @@ module mig_7series_v4_2_ddr_axi_upsizer #
         .S_AXI_AWADDR                     (S_AXI_AWADDR   ),
         .S_AXI_AWLEN                      (S_AXI_AWLEN    ),
         .S_AXI_AWSIZE                     (S_AXI_AWSIZE   ),
-        .S_AXI_AWBURST                    (S_AXI_AWBURST  ),
-        .S_AXI_AWLOCK                     (S_AXI_AWLOCK   ),
-        .S_AXI_AWCACHE                    (S_AXI_AWCACHE  ),
-        .S_AXI_AWPROT                     (S_AXI_AWPROT   ),
-        .S_AXI_AWREGION                   (S_AXI_AWREGION ),
-        .S_AXI_AWQOS                      (S_AXI_AWQOS    ),
-        .S_AXI_AWUSER                     (S_AXI_AWUSER   ),
+        //.S_AXI_AWBURST                    (S_AXI_AWBURST  ),
+        //.S_AXI_AWLOCK                     (S_AXI_AWLOCK   ),
+        //.S_AXI_AWCACHE                    (S_AXI_AWCACHE  ),
+        //.S_AXI_AWPROT                     (S_AXI_AWPROT   ),
+        //.S_AXI_AWREGION                   (S_AXI_AWREGION ),
+        //.S_AXI_AWQOS                      (S_AXI_AWQOS    ),
+        //.S_AXI_AWUSER                     (S_AXI_AWUSER   ),
         .S_AXI_AWVALID                    (S_AXI_AWVALID  ),
         .S_AXI_AWREADY                    (S_AXI_AWREADY  ),
         .S_AXI_WID                        ( {C_AXI_ID_WIDTH{1'b0}}),
         .S_AXI_WDATA                      ( {C_S_AXI_DATA_WIDTH{1'b0}}    ),
         .S_AXI_WSTRB                      ( {C_S_AXI_DATA_WIDTH/8{1'b0}}  ),
         .S_AXI_WLAST                      ( 1'b0 ),
-        .S_AXI_WUSER                      ( 1'b0  ),
+        //.S_AXI_WUSER                      ( 1'b0  ),
         .S_AXI_WVALID                     ( 1'b0 ),
         .S_AXI_WREADY                     ( ),
         .S_AXI_BID                        ( ),
-        .S_AXI_BRESP                      ( ),
-        .S_AXI_BUSER                      ( ),
+        //.S_AXI_BRESP                      ( ),
+        //.S_AXI_BUSER                      ( ),
         .S_AXI_BVALID                     ( ),
         .S_AXI_BREADY                     ( 1'b0 ),
         .S_AXI_ARID                       (S_AXI_ARID     ),
         .S_AXI_ARADDR                     (S_AXI_ARADDR   ),
         .S_AXI_ARLEN                      (S_AXI_ARLEN    ),
         .S_AXI_ARSIZE                     (S_AXI_ARSIZE   ),
-        .S_AXI_ARBURST                    (S_AXI_ARBURST  ),
-        .S_AXI_ARLOCK                     (S_AXI_ARLOCK   ),
-        .S_AXI_ARCACHE                    (S_AXI_ARCACHE  ),
-        .S_AXI_ARPROT                     (S_AXI_ARPROT   ),
-        .S_AXI_ARREGION                   (S_AXI_ARREGION ),
-        .S_AXI_ARQOS                      (S_AXI_ARQOS    ),
-        .S_AXI_ARUSER                     (S_AXI_ARUSER   ),
+        //.S_AXI_ARBURST                    (S_AXI_ARBURST  ),
+        //.S_AXI_ARLOCK                     (S_AXI_ARLOCK   ),
+        //.S_AXI_ARCACHE                    (S_AXI_ARCACHE  ),
+        //.S_AXI_ARPROT                     (S_AXI_ARPROT   ),
+        //.S_AXI_ARREGION                   (S_AXI_ARREGION ),
+        //.S_AXI_ARQOS                      (S_AXI_ARQOS    ),
+        //.S_AXI_ARUSER                     (S_AXI_ARUSER   ),
         .S_AXI_ARVALID                    (S_AXI_ARVALID  ),
         .S_AXI_ARREADY                    (S_AXI_ARREADY  ),
         .S_AXI_RID                        ( ) ,
         .S_AXI_RDATA                      ( ) ,
-        .S_AXI_RRESP                      ( ) ,
+        //.S_AXI_RRESP                      ( ) ,
         .S_AXI_RLAST                      ( ) ,
-        .S_AXI_RUSER                      ( ) ,
+        //.S_AXI_RUSER                      ( ) ,
         .S_AXI_RVALID                     ( ) ,
         .S_AXI_RREADY                     ( 1'b0 ) ,
         .M_AXI_AWID                       (sr_AWID     ),
         .M_AXI_AWADDR                     (sr_AWADDR   ),
         .M_AXI_AWLEN                      (sr_AWLEN    ),
         .M_AXI_AWSIZE                     (sr_AWSIZE   ),
-        .M_AXI_AWBURST                    (sr_AWBURST  ),
-        .M_AXI_AWLOCK                     (sr_AWLOCK   ),
-        .M_AXI_AWCACHE                    (sr_AWCACHE  ),
-        .M_AXI_AWPROT                     (sr_AWPROT   ),
-        .M_AXI_AWREGION                   (sr_AWREGION ),
-        .M_AXI_AWQOS                      (sr_AWQOS    ),
-        .M_AXI_AWUSER                     (sr_AWUSER   ),
+        //.M_AXI_AWBURST                    (sr_AWBURST  ),
+        //.M_AXI_AWLOCK                     (sr_AWLOCK   ),
+        //.M_AXI_AWCACHE                    (sr_AWCACHE  ),
+        //.M_AXI_AWPROT                     (sr_AWPROT   ),
+        //.M_AXI_AWREGION                   (sr_AWREGION ),
+        //.M_AXI_AWQOS                      (sr_AWQOS    ),
+        //.M_AXI_AWUSER                     (sr_AWUSER   ),
         .M_AXI_AWVALID                    (sr_AWVALID  ),
         .M_AXI_AWREADY                    (sr_AWREADY  ),
         .M_AXI_WID                        () ,
         .M_AXI_WDATA                      (),
         .M_AXI_WSTRB                      (),
         .M_AXI_WLAST                      (),
-        .M_AXI_WUSER                      (),
+        //.M_AXI_WUSER                      (),
         .M_AXI_WVALID                     (),
         .M_AXI_WREADY                     (1'b0),
         .M_AXI_BID                        ( {C_AXI_ID_WIDTH{1'b0}} ) ,
-        .M_AXI_BRESP                      ( 2'b0 ) ,
-        .M_AXI_BUSER                      ( 1'b0 ) ,
+        //.M_AXI_BRESP                      ( 2'b0 ) ,
+        //.M_AXI_BUSER                      ( 1'b0 ) ,
         .M_AXI_BVALID                     ( 1'b0 ) ,
         .M_AXI_BREADY                     ( ) ,
         .M_AXI_ARID                       (sr_ARID     ),
         .M_AXI_ARADDR                     (sr_ARADDR   ),
         .M_AXI_ARLEN                      (sr_ARLEN    ),
         .M_AXI_ARSIZE                     (sr_ARSIZE   ),
-        .M_AXI_ARBURST                    (sr_ARBURST  ),
-        .M_AXI_ARLOCK                     (sr_ARLOCK   ),
-        .M_AXI_ARCACHE                    (sr_ARCACHE  ),
-        .M_AXI_ARPROT                     (sr_ARPROT   ),
-        .M_AXI_ARREGION                   (sr_ARREGION ),
-        .M_AXI_ARQOS                      (sr_ARQOS    ),
-        .M_AXI_ARUSER                     (sr_ARUSER   ),
+        //.M_AXI_ARBURST                    (sr_ARBURST  ),
+        //.M_AXI_ARLOCK                     (sr_ARLOCK   ),
+        //.M_AXI_ARCACHE                    (sr_ARCACHE  ),
+        //.M_AXI_ARPROT                     (sr_ARPROT   ),
+        //.M_AXI_ARREGION                   (sr_ARREGION ),
+        //.M_AXI_ARQOS                      (sr_ARQOS    ),
+        //.M_AXI_ARUSER                     (sr_ARUSER   ),
         .M_AXI_ARVALID                    (sr_ARVALID  ),
         .M_AXI_ARREADY                    (sr_ARREADY  ),
         .M_AXI_RID                        ( {C_AXI_ID_WIDTH{1'b0}}),
         .M_AXI_RDATA                      ( {C_S_AXI_DATA_WIDTH{1'b0}}    ),
-        .M_AXI_RRESP                      ( 2'b00 ),
+        //.M_AXI_RRESP                      ( 2'b00 ),
         .M_AXI_RLAST                      ( 1'b0  ),
-        .M_AXI_RUSER                      ( 1'b0  ),
+        //.M_AXI_RUSER                      ( 1'b0  ),
         .M_AXI_RVALID                     ( 1'b0  ),
         .M_AXI_RREADY                     (  )
       );
@@ -450,90 +450,90 @@ module mig_7series_v4_2_ddr_axi_upsizer #
         .S_AXI_AWADDR                     ( {C_AXI_ADDR_WIDTH{1'b0}} ),
         .S_AXI_AWLEN                      ( 8'b0 ),
         .S_AXI_AWSIZE                     ( 3'b0 ),
-        .S_AXI_AWBURST                    ( 2'b0 ),
-        .S_AXI_AWLOCK                     ( 2'b0 ),
-        .S_AXI_AWCACHE                    ( 4'b0 ),
-        .S_AXI_AWPROT                     ( 3'b0 ),
-        .S_AXI_AWREGION                   ( 4'b0 ),
-        .S_AXI_AWQOS                      ( 4'b0 ),
-        .S_AXI_AWUSER                     ( 1'b0 ),
+        //.S_AXI_AWBURST                    ( 2'b0 ),
+        //.S_AXI_AWLOCK                     ( 2'b0 ),
+        //.S_AXI_AWCACHE                    ( 4'b0 ),
+        //.S_AXI_AWPROT                     ( 3'b0 ),
+        //.S_AXI_AWREGION                   ( 4'b0 ),
+        //.S_AXI_AWQOS                      ( 4'b0 ),
+        //.S_AXI_AWUSER                     ( 1'b0 ),
         .S_AXI_AWVALID                    ( 1'b0 ),
         .S_AXI_AWREADY                    (     ),
         .S_AXI_WID                        ( {C_AXI_ID_WIDTH{1'b0}}),
         .S_AXI_WDATA                      ( {C_M_AXI_DATA_WIDTH{1'b0}}  ),
         .S_AXI_WSTRB                      ( {C_M_AXI_DATA_WIDTH/8{1'b0}}  ),
         .S_AXI_WLAST                      ( 1'b0 ),
-        .S_AXI_WUSER                      ( 1'b0  ),
+        //.S_AXI_WUSER                      ( 1'b0  ),
         .S_AXI_WVALID                     ( 1'b0 ),
         .S_AXI_WREADY                     ( ),
         .S_AXI_BID                        ( ),
-        .S_AXI_BRESP                      ( ),
-        .S_AXI_BUSER                      ( ),
+        //.S_AXI_BRESP                      ( ),
+        //.S_AXI_BUSER                      ( ),
         .S_AXI_BVALID                     ( ),
         .S_AXI_BREADY                     ( 1'b0 ),
         .S_AXI_ARID                       ({C_AXI_ID_WIDTH{1'b0}}     ),
         .S_AXI_ARADDR                     ( {C_AXI_ADDR_WIDTH{1'b0}} ),
         .S_AXI_ARLEN                      ( 8'b0 ),
         .S_AXI_ARSIZE                     ( 3'b0 ),
-        .S_AXI_ARBURST                    ( 2'b0 ),
-        .S_AXI_ARLOCK                     ( 2'b0 ),
-        .S_AXI_ARCACHE                    ( 4'b0 ),
-        .S_AXI_ARPROT                     ( 3'b0 ),
-        .S_AXI_ARREGION                   ( 4'b0 ),
-        .S_AXI_ARQOS                      ( 4'b0 ),
-        .S_AXI_ARUSER                     ( 1'b0 ),
+        //.S_AXI_ARBURST                    ( 2'b0 ),
+        //.S_AXI_ARLOCK                     ( 2'b0 ),
+        //.S_AXI_ARCACHE                    ( 4'b0 ),
+        //.S_AXI_ARPROT                     ( 3'b0 ),
+        //.S_AXI_ARREGION                   ( 4'b0 ),
+        //.S_AXI_ARQOS                      ( 4'b0 ),
+        //.S_AXI_ARUSER                     ( 1'b0 ),
         .S_AXI_ARVALID                    ( 1'b0 ),
         .S_AXI_ARREADY                    (     ),
         .S_AXI_RID                        (mr_RID       ),
         .S_AXI_RDATA                      (mr_RDATA     ),
-        .S_AXI_RRESP                      (mr_RRESP     ),
+        //.S_AXI_RRESP                      (mr_RRESP     ),
         .S_AXI_RLAST                      (mr_RLAST     ),
-        .S_AXI_RUSER                      (mr_RUSER     ),
+        //.S_AXI_RUSER                      (mr_RUSER     ),
         .S_AXI_RVALID                     (mr_RVALID    ),
         .S_AXI_RREADY                     (mr_RREADY    ),
         .M_AXI_AWID                       (),
         .M_AXI_AWADDR                     (),
         .M_AXI_AWLEN                      (),
         .M_AXI_AWSIZE                     (),
-        .M_AXI_AWBURST                    (),
-        .M_AXI_AWLOCK                     (),
-        .M_AXI_AWCACHE                    (),
-        .M_AXI_AWPROT                     (),
-        .M_AXI_AWREGION                   (),
-        .M_AXI_AWQOS                      (),
-        .M_AXI_AWUSER                     (),
+        //.M_AXI_AWBURST                    (),
+        //.M_AXI_AWLOCK                     (),
+        //.M_AXI_AWCACHE                    (),
+        //.M_AXI_AWPROT                     (),
+        //.M_AXI_AWREGION                   (),
+        //.M_AXI_AWQOS                      (),
+        //.M_AXI_AWUSER                     (),
         .M_AXI_AWVALID                    (),
         .M_AXI_AWREADY                    (1'b0),
         .M_AXI_WID                        () ,
         .M_AXI_WDATA                      (),
         .M_AXI_WSTRB                      (),
         .M_AXI_WLAST                      (),
-        .M_AXI_WUSER                      (),
+        //.M_AXI_WUSER                      (),
         .M_AXI_WVALID                     (),
         .M_AXI_WREADY                     (1'b0),
         .M_AXI_BID                        ( {C_AXI_ID_WIDTH{1'b0}} ) ,
-        .M_AXI_BRESP                      ( 2'b0 ) ,
-        .M_AXI_BUSER                      ( 1'b0 ) ,
+        //.M_AXI_BRESP                      ( 2'b0 ) ,
+        //.M_AXI_BUSER                      ( 1'b0 ) ,
         .M_AXI_BVALID                     ( 1'b0 ) ,
         .M_AXI_BREADY                     ( ) ,
         .M_AXI_ARID                       (),
         .M_AXI_ARADDR                     (),
         .M_AXI_ARLEN                      (),
         .M_AXI_ARSIZE                     (),
-        .M_AXI_ARBURST                    (),
-        .M_AXI_ARLOCK                     (),
-        .M_AXI_ARCACHE                    (),
-        .M_AXI_ARPROT                     (),
-        .M_AXI_ARREGION                   (),
-        .M_AXI_ARQOS                      (),
-        .M_AXI_ARUSER                     (),
+        //.M_AXI_ARBURST                    (),
+        //.M_AXI_ARLOCK                     (),
+        //.M_AXI_ARCACHE                    (),
+        //.M_AXI_ARPROT                     (),
+        //.M_AXI_ARREGION                   (),
+        //.M_AXI_ARQOS                      (),
+        //.M_AXI_ARUSER                     (),
         .M_AXI_ARVALID                    (),
         .M_AXI_ARREADY                    (1'b0),
         .M_AXI_RID                        (M_AXI_RID    ),
         .M_AXI_RDATA                      (M_AXI_RDATA  ),
-        .M_AXI_RRESP                      (M_AXI_RRESP  ),
+        //.M_AXI_RRESP                      (M_AXI_RRESP  ),
         .M_AXI_RLAST                      (M_AXI_RLAST  ),
-        .M_AXI_RUSER                      (M_AXI_RUSER  ),
+        //.M_AXI_RUSER                      (M_AXI_RUSER  ),
         .M_AXI_RVALID                     (M_AXI_RVALID ),
         .M_AXI_RREADY                     (M_AXI_RREADY )
       );
@@ -610,13 +610,14 @@ module mig_7series_v4_2_ddr_axi_upsizer #
         .S_AXI_AADDR                (sr_AWADDR),
         .S_AXI_ALEN                 (sr_AWLEN),
         .S_AXI_ASIZE                (sr_AWSIZE),
-        .S_AXI_ABURST               (sr_AWBURST),
-        .S_AXI_ALOCK                (sr_AWLOCK),
-        .S_AXI_ACACHE               (sr_AWCACHE),
-        .S_AXI_APROT                (sr_AWPROT),
-        .S_AXI_AREGION              (sr_AWREGION),
-        .S_AXI_AQOS                 (sr_AWQOS),
-        .S_AXI_AUSER                (sr_AWUSER),
+        .S_AXI_ABURST               (1'b01),  // INCR
+        //.S_AXI_ABURST               (sr_AWBURST),
+        //.S_AXI_ALOCK                (sr_AWLOCK),
+        //.S_AXI_ACACHE               (sr_AWCACHE),
+        //.S_AXI_APROT                (sr_AWPROT),
+        //.S_AXI_AREGION              (sr_AWREGION),
+        //.S_AXI_AQOS                 (sr_AWQOS),
+        //.S_AXI_AUSER                (sr_AWUSER),
         .S_AXI_AVALID               (sr_AWVALID),
         .S_AXI_AREADY               (sr_AWREADY),
         
@@ -625,13 +626,13 @@ module mig_7series_v4_2_ddr_axi_upsizer #
         .M_AXI_AADDR                (M_AXI_AWADDR),
         .M_AXI_ALEN                 (M_AXI_AWLEN),
         .M_AXI_ASIZE                (M_AXI_AWSIZE),
-        .M_AXI_ABURST               (M_AXI_AWBURST),
-        .M_AXI_ALOCK                (M_AXI_AWLOCK),
-        .M_AXI_ACACHE               (M_AXI_AWCACHE),
-        .M_AXI_APROT                (M_AXI_AWPROT),
-        .M_AXI_AREGION              (M_AXI_AWREGION),
-        .M_AXI_AQOS                 (M_AXI_AWQOS),
-        .M_AXI_AUSER                (M_AXI_AWUSER),
+        //.M_AXI_ABURST               (M_AXI_AWBURST),
+        //.M_AXI_ALOCK                (M_AXI_AWLOCK),
+        //.M_AXI_ACACHE               (M_AXI_AWCACHE),
+        //.M_AXI_APROT                (M_AXI_AWPROT),
+        //.M_AXI_AREGION              (M_AXI_AWREGION),
+        //.M_AXI_AQOS                 (M_AXI_AWQOS),
+        //.M_AXI_AUSER                (M_AXI_AWUSER),
         .M_AXI_AVALID               (M_AXI_AWVALID),
         .M_AXI_AREADY               (M_AXI_AWREADY)
        );
@@ -676,7 +677,7 @@ module mig_7series_v4_2_ddr_axi_upsizer #
         .S_AXI_WDATA                (S_AXI_WDATA),
         .S_AXI_WSTRB                (S_AXI_WSTRB),
         .S_AXI_WLAST                (S_AXI_WLAST),
-        .S_AXI_WUSER                (S_AXI_WUSER),
+        //.S_AXI_WUSER                (S_AXI_WUSER),
         .S_AXI_WVALID               (S_AXI_WVALID),
         .S_AXI_WREADY               (S_AXI_WREADY),
         
@@ -684,15 +685,15 @@ module mig_7series_v4_2_ddr_axi_upsizer #
         .M_AXI_WDATA                (M_AXI_WDATA),
         .M_AXI_WSTRB                (M_AXI_WSTRB),
         .M_AXI_WLAST                (M_AXI_WLAST),
-        .M_AXI_WUSER                (),
+        //.M_AXI_WUSER                (),
         .M_AXI_WVALID               (M_AXI_WVALID),
         .M_AXI_WREADY               (M_AXI_WREADY)
        );
       
       // Write Response channel.
       assign S_AXI_BID     = M_AXI_BID;
-      assign S_AXI_BRESP   = M_AXI_BRESP;
-      assign S_AXI_BUSER   = M_AXI_BUSER;
+      //assign S_AXI_BRESP   = M_AXI_BRESP;
+      //assign S_AXI_BUSER   = M_AXI_BUSER;
       assign S_AXI_BVALID  = M_AXI_BVALID;
       assign M_AXI_BREADY  = S_AXI_BREADY;
        
@@ -700,20 +701,20 @@ module mig_7series_v4_2_ddr_axi_upsizer #
       assign sr_AWREADY = 1'b0;
       assign S_AXI_WREADY  = 1'b0;
       assign S_AXI_BID     = {C_AXI_ID_WIDTH{1'b0}};
-      assign S_AXI_BRESP   = 2'b0;
-      assign S_AXI_BUSER   = {C_AXI_BUSER_WIDTH{1'b0}};
+      //assign S_AXI_BRESP   = 2'b0;
+      //assign S_AXI_BUSER   = {C_AXI_BUSER_WIDTH{1'b0}};
       assign S_AXI_BVALID  = 1'b0;
       
       assign M_AXI_AWID    = {C_AXI_ID_WIDTH{1'b0}};
       assign M_AXI_AWADDR  = {C_AXI_ADDR_WIDTH{1'b0}};
       assign M_AXI_AWLEN   = 8'b0;
       assign M_AXI_AWSIZE  = 3'b0;
-      assign M_AXI_AWBURST = 2'b0;
-      assign M_AXI_AWLOCK  = 2'b0;
-      assign M_AXI_AWCACHE = 4'b0;
-      assign M_AXI_AWPROT  = 3'b0;
-      assign M_AXI_AWQOS   = 4'b0;
-      assign M_AXI_AWUSER  = {C_AXI_AWUSER_WIDTH{1'b0}};
+      //assign M_AXI_AWBURST = 2'b0;
+      //assign M_AXI_AWLOCK  = 2'b0;
+      //assign M_AXI_AWCACHE = 4'b0;
+      //assign M_AXI_AWPROT  = 3'b0;
+      //assign M_AXI_AWQOS   = 4'b0;
+      //assign M_AXI_AWUSER  = {C_AXI_AWUSER_WIDTH{1'b0}};
       assign M_AXI_AWVALID = 1'b0;
       assign M_AXI_WDATA   = {C_M_AXI_DATA_WIDTH{1'b0}};
       assign M_AXI_WSTRB   = {C_M_AXI_DATA_WIDTH/8{1'b0}};
@@ -789,13 +790,14 @@ module mig_7series_v4_2_ddr_axi_upsizer #
         .S_AXI_AADDR                (sr_ARADDR),
         .S_AXI_ALEN                 (sr_ARLEN),
         .S_AXI_ASIZE                (sr_ARSIZE),
-        .S_AXI_ABURST               (sr_ARBURST),
-        .S_AXI_ALOCK                (sr_ARLOCK),
-        .S_AXI_ACACHE               (sr_ARCACHE),
-        .S_AXI_APROT                (sr_ARPROT),
-        .S_AXI_AREGION              (sr_ARREGION),
-        .S_AXI_AQOS                 (sr_ARQOS),
-        .S_AXI_AUSER                (sr_ARUSER),
+        .S_AXI_ABURST               (2'b01),  // INCR
+        //.S_AXI_ABURST               (sr_ARBURST),
+        //.S_AXI_ALOCK                (sr_ARLOCK),
+        //.S_AXI_ACACHE               (sr_ARCACHE),
+        //.S_AXI_APROT                (sr_ARPROT),
+        //.S_AXI_AREGION              (sr_ARREGION),
+        //.S_AXI_AQOS                 (sr_ARQOS),
+        //.S_AXI_AUSER                (sr_ARUSER),
         .S_AXI_AVALID               (sr_ARVALID),
         .S_AXI_AREADY               (sr_ARREADY),
         
@@ -804,13 +806,13 @@ module mig_7series_v4_2_ddr_axi_upsizer #
         .M_AXI_AADDR                (M_AXI_ARADDR),
         .M_AXI_ALEN                 (M_AXI_ARLEN),
         .M_AXI_ASIZE                (M_AXI_ARSIZE),
-        .M_AXI_ABURST               (M_AXI_ARBURST),
-        .M_AXI_ALOCK                (M_AXI_ARLOCK),
-        .M_AXI_ACACHE               (M_AXI_ARCACHE),
-        .M_AXI_APROT                (M_AXI_ARPROT),
-        .M_AXI_AREGION              (M_AXI_ARREGION),
-        .M_AXI_AQOS                 (M_AXI_ARQOS),
-        .M_AXI_AUSER                (M_AXI_ARUSER),
+        //.M_AXI_ABURST               (M_AXI_ARBURST),
+        //.M_AXI_ALOCK                (M_AXI_ARLOCK),
+        //.M_AXI_ACACHE               (M_AXI_ARCACHE),
+        //.M_AXI_APROT                (M_AXI_ARPROT),
+        //.M_AXI_AREGION              (M_AXI_ARREGION),
+        //.M_AXI_AQOS                 (M_AXI_ARQOS),
+        //.M_AXI_AUSER                (M_AXI_ARUSER),
         .M_AXI_AVALID               (M_AXI_ARVALID),
         .M_AXI_AREADY               (M_AXI_ARREADY)
        );
@@ -855,18 +857,18 @@ module mig_7series_v4_2_ddr_axi_upsizer #
         // Slave Interface Read Data Ports
         .S_AXI_RID                  (S_AXI_RID),
         .S_AXI_RDATA                (S_AXI_RDATA),
-        .S_AXI_RRESP                (S_AXI_RRESP),
+        //.S_AXI_RRESP                (S_AXI_RRESP),
         .S_AXI_RLAST                (S_AXI_RLAST),
-        .S_AXI_RUSER                (),
+        //.S_AXI_RUSER                (),
         .S_AXI_RVALID               (S_AXI_RVALID),
         .S_AXI_RREADY               (S_AXI_RREADY),
         
         // Master Interface Read Data Ports
         .M_AXI_RID                  (mr_RID),
         .M_AXI_RDATA                (mr_RDATA),
-        .M_AXI_RRESP                (mr_RRESP),
+        //.M_AXI_RRESP                (mr_RRESP),
         .M_AXI_RLAST                (mr_RLAST),
-        .M_AXI_RUSER                (mr_RUSER),
+        //.M_AXI_RUSER                (mr_RUSER),
         .M_AXI_RVALID               (mr_RVALID),
         .M_AXI_RREADY               (mr_RREADY)
        );
@@ -875,7 +877,7 @@ module mig_7series_v4_2_ddr_axi_upsizer #
       assign sr_ARREADY = 1'b0;
       assign S_AXI_RID     = {C_AXI_ID_WIDTH{1'b0}};
       assign S_AXI_RDATA   = {C_S_AXI_DATA_WIDTH{1'b0}};
-      assign S_AXI_RRESP   = 2'b0;
+      //assign S_AXI_RRESP   = 2'b0;
       assign S_AXI_RLAST   = 1'b0;
       assign S_AXI_RVALID  = 1'b0;
       
@@ -883,12 +885,12 @@ module mig_7series_v4_2_ddr_axi_upsizer #
       assign M_AXI_ARADDR  = {C_AXI_ADDR_WIDTH{1'b0}};
       assign M_AXI_ARLEN   = 8'b0;
       assign M_AXI_ARSIZE  = 3'b0;
-      assign M_AXI_ARBURST = 2'b0;
-      assign M_AXI_ARLOCK  = 2'b0;
-      assign M_AXI_ARCACHE = 4'b0;
-      assign M_AXI_ARPROT  = 3'b0;
-      assign M_AXI_ARQOS   = 4'b0;
-      assign M_AXI_ARUSER  = {C_AXI_ARUSER_WIDTH{1'b0}};
+      //assign M_AXI_ARBURST = 2'b0;
+      //assign M_AXI_ARLOCK  = 2'b0;
+      //assign M_AXI_ARCACHE = 4'b0;
+      //assign M_AXI_ARPROT  = 3'b0;
+      //assign M_AXI_ARQOS   = 4'b0;
+      //assign M_AXI_ARUSER  = {C_AXI_ARUSER_WIDTH{1'b0}};
       assign M_AXI_ARVALID = 1'b0;
       assign mr_RREADY  = 1'b0;
       

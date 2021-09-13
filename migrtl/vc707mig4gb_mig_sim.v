@@ -485,7 +485,7 @@ module vc707mig4gb_mig #
                                              // Width of S_AXI_AWADDR, S_AXI_ARADDR, M_AXI_AWADDR and
                                              // M_AXI_ARADDR for all SI/MI slots.
                                              // # = 32.
-   parameter C_S_AXI_DATA_WIDTH            = 64,
+   parameter C_S_AXI_DATA_WIDTH            = 512,
                                              // Width of WDATA and RDATA on SI slot.
                                              // Must be <= APP_DATA_WIDTH.
                                              // # = 32, 64, 128, 256.
@@ -606,23 +606,23 @@ module vc707mig4gb_mig #
    output                                       mmcm_locked,
    
    input                                        aresetn,
-   input                                        app_sr_req,
-   input                                        app_ref_req,
-   input                                        app_zq_req,
-   output                                       app_sr_active,
-   output                                       app_ref_ack,
-   output                                       app_zq_ack,
+   //input                                        app_sr_req,
+   //input                                        app_ref_req,
+   //input                                        app_zq_req,
+   //output                                       app_sr_active,
+   //output                                       app_ref_ack,
+   //output                                       app_zq_ack,
 
    // Slave Interface Write Address Ports
    input  [C_S_AXI_ID_WIDTH-1:0]                s_axi_awid,
    input  [C_S_AXI_ADDR_WIDTH-1:0]              s_axi_awaddr,
    input  [7:0]                                 s_axi_awlen,
    input  [2:0]                                 s_axi_awsize,
-   input  [1:0]                                 s_axi_awburst,
-   input  [0:0]                                 s_axi_awlock,
-   input  [3:0]                                 s_axi_awcache,
-   input  [2:0]                                 s_axi_awprot,
-   input  [3:0]                                 s_axi_awqos,
+   //input  [1:0]                                 s_axi_awburst,
+   //input  [0:0]                                 s_axi_awlock,
+   //input  [3:0]                                 s_axi_awcache,
+   //input  [2:0]                                 s_axi_awprot,
+   //input  [3:0]                                 s_axi_awqos,
    input                                        s_axi_awvalid,
    output                                       s_axi_awready,
    // Slave Interface Write Data Ports
@@ -634,25 +634,25 @@ module vc707mig4gb_mig #
    // Slave Interface Write Response Ports
    input                                        s_axi_bready,
    output [C_S_AXI_ID_WIDTH-1:0]                s_axi_bid,
-   output [1:0]                                 s_axi_bresp,
+   //output [1:0]                                 s_axi_bresp,
    output                                       s_axi_bvalid,
    // Slave Interface Read Address Ports
    input  [C_S_AXI_ID_WIDTH-1:0]                s_axi_arid,
    input  [C_S_AXI_ADDR_WIDTH-1:0]              s_axi_araddr,
    input  [7:0]                                 s_axi_arlen,
    input  [2:0]                                 s_axi_arsize,
-   input  [1:0]                                 s_axi_arburst,
-   input  [0:0]                                 s_axi_arlock,
-   input  [3:0]                                 s_axi_arcache,
-   input  [2:0]                                 s_axi_arprot,
-   input  [3:0]                                 s_axi_arqos,
+   //input  [1:0]                                 s_axi_arburst,
+   //input  [0:0]                                 s_axi_arlock,
+   //input  [3:0]                                 s_axi_arcache,
+   //input  [2:0]                                 s_axi_arprot,
+   //input  [3:0]                                 s_axi_arqos,
    input                                        s_axi_arvalid,
    output                                       s_axi_arready,
    // Slave Interface Read Data Ports
    input                                        s_axi_rready,
    output [C_S_AXI_ID_WIDTH-1:0]                s_axi_rid,
    output [C_S_AXI_DATA_WIDTH-1:0]              s_axi_rdata,
-   output [1:0]                                 s_axi_rresp,
+   //output [1:0]                                 s_axi_rresp,
    output                                       s_axi_rlast,
    output                                       s_axi_rvalid,
 
@@ -662,7 +662,7 @@ module vc707mig4gb_mig #
    
    output                                       init_calib_complete,
    
-   output [11:0]                                 device_temp,
+   //output [11:0]                                 device_temp,
 `ifdef SKIP_CALIB
    output                                      calib_tap_req,
    input                                       calib_tap_load,
@@ -676,12 +676,37 @@ module vc707mig4gb_mig #
    // System reset polarity will change based on the option 
    // selected in GUI.
    input                                        sys_rst,
-   input  [ 7:0] tRCD2,
-   input  [ 7:0] tRP2,
-   input  [10:0] tRAS2,
-   output [63:0] cnt_act,
-   input  [2:0]  nvmm_begin
+   input  [ 4:0] tRCD2,
+   input  [ 4:0] tRP2,
+   input  [ 2:0] nvmm_begin,
+   input  [ 7:0] bank_dirty,
+   //output        ddr_clock,
+   output [ 6:0]  ddr_cmd
    );
+
+   reg [ 4:0] tRCD2_r;
+   reg [ 4:0] tRP2_r;
+   //reg [ 2:0]  nvmm_begin_r;
+   //reg [ 7:0] bank_dirty_r;
+
+   wire [ 4:0] tRCD2_i;
+   wire [ 4:0] tRP2_i;
+   wire [ 2:0]  nvmm_begin_i;
+   wire [ 7:0] bank_dirty_i;
+
+   assign tRCD2_i      = tRCD2_r;
+   assign tRP2_i       = tRP2_r;
+   assign nvmm_begin_i = nvmm_begin;
+   assign bank_dirty_i = bank_dirty;
+
+   always @( posedge sys_clk_i )
+   begin
+      tRCD2_r      <= tRCD2;
+      tRP2_r       <= tRP2;
+      //nvmm_begin_r <= nvmm_begin;
+      //bank_dirty_r <= bank_dirty;
+   end
+
 
   function integer clogb2 (input integer size);
     begin
@@ -875,7 +900,7 @@ module vc707mig4gb_mig #
   assign sys_clk_p = 1'b0;
   assign sys_clk_n = 1'b0;
   assign clk_ref_i = 1'b0;
-  assign device_temp = device_temp_s;
+  //assign device_temp = device_temp_s;
       
 
   generate
@@ -924,7 +949,7 @@ module vc707mig4gb_mig #
        );
   // Temperature monitoring logic
 
-  generate
+  /*generate
     if (TEMP_MON_EN == "ON") begin: temp_mon_enabled
 
       mig_7series_v4_2_tempmon #
@@ -947,7 +972,7 @@ module vc707mig4gb_mig #
       assign device_temp_s = 'b0;
 
     end
-  endgenerate
+  endgenerate*/
          
   mig_7series_v4_2_infrastructure #
     (
@@ -1198,7 +1223,7 @@ module vc707mig4gb_mig #
        .app_ecc_multiple_err_o           (),
        .app_ecc_single_err               (),
 
-       .device_temp                      (device_temp_s),
+       //.device_temp                      (device_temp_s),
 
        // skip calibration ports
        `ifdef SKIP_CALIB
@@ -1283,23 +1308,26 @@ module vc707mig4gb_mig #
        .dbg_oclkdelay_calib_done         (dbg_oclkdelay_calib_done),
        .dbg_dqs_found_cal                (dbg_dqs_found_cal),  
        .aresetn                          (aresetn),
-       .app_sr_req                       (app_sr_req),
-       .app_sr_active                    (app_sr_active),
-       .app_ref_req                      (app_ref_req),
-       .app_ref_ack                      (app_ref_ack),
-       .app_zq_req                       (app_zq_req),
-       .app_zq_ack                       (app_zq_ack),
+       //.app_sr_req                       (app_sr_req),
+       //.app_sr_active                    (app_sr_active),
+       //.app_ref_req                      (app_ref_req),
+       //.app_ref_ack                      (app_ref_ack),
+       //.app_zq_req                       (app_zq_req),
+       //.app_zq_ack                       (app_zq_ack),
+       .app_sr_req                       (1'b0),
+       .app_ref_req                      (1'b0),
+       .app_zq_req                       (1'b0),
 
        // Slave Interface Write Address Ports
        .s_axi_awid                       (s_axi_awid),
        .s_axi_awaddr                     (s_axi_awaddr),
        .s_axi_awlen                      (s_axi_awlen),
        .s_axi_awsize                     (s_axi_awsize),
-       .s_axi_awburst                    (s_axi_awburst),
-       .s_axi_awlock                     (s_axi_awlock),
-       .s_axi_awcache                    (s_axi_awcache),
-       .s_axi_awprot                     (s_axi_awprot),
-       .s_axi_awqos                      (s_axi_awqos),
+       //.s_axi_awburst                    (s_axi_awburst),
+       //.s_axi_awlock                     (s_axi_awlock),
+       //.s_axi_awcache                    (s_axi_awcache),
+       //.s_axi_awprot                     (s_axi_awprot),
+       //.s_axi_awqos                      (s_axi_awqos),
        .s_axi_awvalid                    (s_axi_awvalid),
        .s_axi_awready                    (s_axi_awready),
        // Slave Interface Write Data Ports
@@ -1310,7 +1338,7 @@ module vc707mig4gb_mig #
        .s_axi_wready                     (s_axi_wready),
        // Slave Interface Write Response Ports
        .s_axi_bid                        (s_axi_bid),
-       .s_axi_bresp                      (s_axi_bresp),
+       //.s_axi_bresp                      (s_axi_bresp),
        .s_axi_bvalid                     (s_axi_bvalid),
        .s_axi_bready                     (s_axi_bready),
        // Slave Interface Read Address Ports
@@ -1318,17 +1346,17 @@ module vc707mig4gb_mig #
        .s_axi_araddr                     (s_axi_araddr),
        .s_axi_arlen                      (s_axi_arlen),
        .s_axi_arsize                     (s_axi_arsize),
-       .s_axi_arburst                    (s_axi_arburst),
-       .s_axi_arlock                     (s_axi_arlock),
-       .s_axi_arcache                    (s_axi_arcache),
-       .s_axi_arprot                     (s_axi_arprot),
-       .s_axi_arqos                      (s_axi_arqos),
+       //.s_axi_arburst                    (s_axi_arburst),
+       //.s_axi_arlock                     (s_axi_arlock),
+       //.s_axi_arcache                    (s_axi_arcache),
+       //.s_axi_arprot                     (s_axi_arprot),
+       //.s_axi_arqos                      (s_axi_arqos),
        .s_axi_arvalid                    (s_axi_arvalid),
        .s_axi_arready                    (s_axi_arready),
        // Slave Interface Read Data Ports
        .s_axi_rid                        (s_axi_rid),
        .s_axi_rdata                      (s_axi_rdata),
-       .s_axi_rresp                      (s_axi_rresp),
+       //.s_axi_rresp                      (s_axi_rresp),
        .s_axi_rlast                      (s_axi_rlast),
        .s_axi_rvalid                     (s_axi_rvalid),
        .s_axi_rready                     (s_axi_rready),
@@ -1357,11 +1385,12 @@ module vc707mig4gb_mig #
        .interrupt                        (interrupt),
        .init_calib_complete              (init_calib_complete),
        .dbg_poc                          (),
-       .tRCD2(tRCD2),
-       .tRP2(tRP2),
-       .tRAS2(tRAS2),
-       .cnt_act(cnt_act),
-       .nvmm_begin(nvmm_begin)
+       .tRCD2(tRCD2_i),
+       .tRP2(tRP2_i),
+       .nvmm_begin(nvmm_begin_i),
+       .bank_dirty(bank_dirty_i),
+       //.ddr_clock(ddr_clock),
+       .ddr_cmd(ddr_cmd)
        );
 
       

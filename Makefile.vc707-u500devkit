@@ -24,9 +24,12 @@ VSRCS := \
     $(base_dir)/UIntToAnalog_1.v \
     $(base_dir)/AnalogToUInt_1.v \
 	$(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).rom.v \
-	$(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).v
+	$(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).v \
+    $(base_dir)/FCFSArbiter.v \
+    $(base_dir)/GMulOpt.v \
+    $(base_dir)/GModOpt.v
 
 #PATCHVERILOG = ./scripts/connect_nvmmctr_mig.sh
-PATCHVERILOG = ./scripts/connect_nvmmctr_mig-pcie.sh
+#PATCHVERILOG = ./scripts/connect_nvmmctr_mig-pcie.sh
 
 include common.mk

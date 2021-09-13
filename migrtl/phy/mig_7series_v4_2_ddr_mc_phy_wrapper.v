@@ -292,7 +292,8 @@ module mig_7series_v4_2_ddr_mc_phy_wrapper #
    inout [DQS_WIDTH-1:0]                         ddr_dqs,
    inout [DQS_WIDTH-1:0]                         ddr_dqs_n,
    //output                                        iodelay_ctrl_rdy,
-   output                                        pd_out
+   output                                        pd_out,
+   output [6:0]                                  ddr_cmd
 
    ,input                                        dbg_pi_counter_read_en
    ,output                                       ref_dll_lock
@@ -594,6 +595,8 @@ module mig_7series_v4_2_ddr_mc_phy_wrapper #
   wire iddr_rst_i;
 
   (* use_dsp48 = "no" *) wire [DQS_CNT_WIDTH:0]             byte_sel_cnt_w1;
+
+  assign ddr_cmd = { out_ba, out_cs_n[0], out_ras_n, out_cas_n, out_we_n };
 
   // Always read from input data FIFOs when not empty
   assign phy_rd_en = !if_empty;

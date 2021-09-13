@@ -290,6 +290,9 @@ sed -i -E "s/(assign nvmmctr_io_lat_dr256 = nvmmctr__)/\/\/\1/g" $v
 sed -i -E "s/(assign nvmmctr_io_lat_dr4096 = nvmmctr__)/\/\/\1/g" $v
 sed -i -E "s/(assign nvmmctr_io_lat_dw256 = nvmmctr__)/\/\/\1/g" $v
 sed -i -E "s/(assign nvmmctr_io_lat_dw4096 = nvmmctr__)/\/\/\1/g" $v
+sed -i -E "s/(assign nvmmctr_io_lat_tRCD2 = nvmmctr__)/\/\/\1/g" $v
+sed -i -E "s/(assign nvmmctr_io_lat_tRP2 = nvmmctr__)/\/\/\1/g" $v
+sed -i -E "s/(assign nvmmctr_io_lat_tRAS2 = nvmmctr__)/\/\/\1/g" $v
 sed -i -E "s/(assign nvmmctr__io_cnt_)/\/\/\1/g" $v
 sed -i -E "s/(assign mig_io_port_nvmm_)/\/\/\1/g" $v
 sed -i -E "s/(assign mig_io_port_tRCD2)/\/\/\1/g" $v

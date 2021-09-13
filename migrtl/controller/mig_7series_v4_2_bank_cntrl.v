@@ -118,7 +118,7 @@ module mig_7series_v4_2_bank_cntrl #
   data_buf_addr, col, cmd, clk, bm_end_in, bank, adv_order_q,
   accept_req, accept_internal_r, rnk_config_kill_rts_col, phy_mc_ctl_full,
   phy_mc_cmd_full, phy_mc_data_full,
-  tRCD2, tRP2, tRAS2, nvmm_begin, bank_dirty
+  tRCD2, tRP2, nvmm_begin, bank_dirty
   );
 
 
@@ -248,11 +248,10 @@ module mig_7series_v4_2_bank_cntrl #
   output maint_hit;
   output [DATA_BUF_ADDR_WIDTH-1:0] req_data_buf_addr_r;
 
-   input  [ 7:0] tRCD2;
-   input  [ 7:0] tRP2;
-   input  [10:0] tRAS2;
-   input  [2:0]  nvmm_begin;
-   input  [7:0]  bank_dirty;
+   input  [ 4:0] tRCD2;
+   input  [ 4:0] tRP2;
+   input  [ 2:0]  nvmm_begin;
+   input  [ 7:0]  bank_dirty;
 
    // check: if this requests will send to NVMM or not?
    wire        to_nvmm;
@@ -260,10 +259,8 @@ module mig_7series_v4_2_bank_cntrl #
 
    wire [ 7:0]    tRCD2_;
    wire [ 7:0]    tRP2_;
-   wire [10:0]    tRAS2_;
-   assign tRCD2_ = to_nvmm ? tRCD2 : 'h0;
-   assign tRP2_  = (to_nvmm & bank_dirty[bank]) ? tRP2 : 'h0;
-   assign tRAS2_ = to_nvmm ? tRAS2 :'h0;
+   assign tRCD2_ = to_nvmm ? (tRCD2 << 3) : 'h0;
+   assign tRP2_  = (to_nvmm & bank_dirty[bank]) ? (tRP2 << 3) : 'h0;
 
   mig_7series_v4_2_bank_compare #
     (/*AUTOINSTPARAM*/
@@ -420,10 +417,7 @@ module mig_7series_v4_2_bank_cntrl #
        .inhbt_wr                        (inhbt_wr[RANKS-1:0]),
        .dq_busy_data                    (dq_busy_data),
        .tRCD2(tRCD2_),
-       .tRP2(tRP2_),
-       .tRAS2(tRAS2_),
-       .to_nvmm(to_nvmm),
-       .maint_req_r(maint_req_r)
+       .tRP2(tRP2_)
        );
 
   mig_7series_v4_2_bank_queue #

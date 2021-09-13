@@ -289,6 +289,8 @@ module mig_7series_v4_2_ddr_phy_top #
    inout [DQ_WIDTH-1:0]                ddr_dq,
    inout [DQS_WIDTH-1:0]               ddr_dqs_n,
    inout [DQS_WIDTH-1:0]               ddr_dqs,
+   //output                              ddr_clock,
+   output [6:0]                        ddr_cmd,
 
    // Ports to be used when SKIP_CALIB="TRUE"
    output                              calib_tap_req,
@@ -845,6 +847,7 @@ module mig_7series_v4_2_ddr_phy_top #
         assign ddr_ck_n[i] = ddr_clk[(LP_DDR_CK_WIDTH * i) + 1];
      end
   endgenerate
+  // assign ddr_clock   = ddr_clk[0];
 
   //***************************************************************************
   // During memory initialization and calibration the calibration logic drives
@@ -1194,6 +1197,7 @@ module mig_7series_v4_2_ddr_phy_top #
        .dbg_pi_dqs_found_lanes_phy4lanes (dbg_pi_dqs_found_lanes_phy4lanes),
        .byte_sel_cnt           (byte_sel_cnt),
        .pd_out                 (pd_out),
+       .ddr_cmd                (ddr_cmd),
        .fine_delay_incdec_pb   (fine_delay_incdec_pb),
        .fine_delay_sel         (fine_delay_sel)
        );

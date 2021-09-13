@@ -46,7 +46,11 @@ $(FIRRTL_JAR): $(shell find $(rocketchip_dir)/firrtl/src/main/scala -iname "*.sc
 # Build .fir
 devkitconfigs := $(base_dir)/src/main/scala/unleashed/DevKitConfigs.scala
 firrtl := $(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).fir
+buildsbt := ${base_dir}/OpenMPE/build.sbt
 $(firrtl): $(shell find $(base_dir)/src/main/scala -name '*.scala') $(FIRRTL_JAR)
+ifneq (, $(shell readlink -e ${buildsbt}))
+	unlink ${buildsbt}
+endif
 	mkdir -p $(dir $@)
 	sed -i -re "s/new WithNBigCores\([0-9]\)/new WithNBigCores($(NUM_CORES))/" $(devkitconfigs)
 	$(SBT) "runMain freechips.rocketchip.system.Generator $(BUILD_DIR) $(PROJECT) $(MODEL) $(CONFIG_PROJECT) $(CONFIG)"
@@ -58,6 +62,7 @@ firrtl: $(firrtl)
 verilog := $(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).v
 anno    := $(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).anno.json
 $(verilog): $(firrtl) $(FIRRTL_JAR)
+	sed -i -re 's# MEM_INIT_TXT .*$\# MEM_INIT_TXT "${base_dir}/sim/mem_init.txt"#' ${base_dir}/sim/ddr3_model.sv
 	$(FIRRTL) -i $(firrtl) -o $@ -X verilog -faf $(anno)
 ifneq ($(PATCHVERILOG),"")
 	$(PATCHVERILOG)
@@ -77,7 +82,7 @@ endif
 romgen: $(romgen)
 
 f := $(BUILD_DIR)/$(CONFIG_PROJECT).$(CONFIG).vsrcs.F
-$(f):
+$(f): $(firrtl)
 	echo $(VSRCS) > $@
 
 bit := $(BUILD_DIR)/obj/$(MODEL).bit

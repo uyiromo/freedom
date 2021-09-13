@@ -97,13 +97,13 @@ module mig_7series_v4_2_ddr_axi_register_slice #
    input  wire [C_AXI_ADDR_WIDTH-1:0]   S_AXI_AWADDR,
    input  wire [8-1:0]                  S_AXI_AWLEN,
    input  wire [3-1:0]                  S_AXI_AWSIZE,
-   input  wire [2-1:0]                  S_AXI_AWBURST,
-   input  wire [2-1:0]                  S_AXI_AWLOCK,
-   input  wire [4-1:0]                  S_AXI_AWCACHE,
-   input  wire [3-1:0]                  S_AXI_AWPROT,
-   input  wire [4-1:0]                  S_AXI_AWREGION,
-   input  wire [4-1:0]                  S_AXI_AWQOS,
-   input  wire [C_AXI_AWUSER_WIDTH-1:0] S_AXI_AWUSER,
+   //input  wire [2-1:0]                  S_AXI_AWBURST,
+   //input  wire [2-1:0]                  S_AXI_AWLOCK,
+   //input  wire [4-1:0]                  S_AXI_AWCACHE,
+   //input  wire [3-1:0]                  S_AXI_AWPROT,
+   //input  wire [4-1:0]                  S_AXI_AWREGION,
+   //input  wire [4-1:0]                  S_AXI_AWQOS,
+   //input  wire [C_AXI_AWUSER_WIDTH-1:0] S_AXI_AWUSER,
    input  wire                          S_AXI_AWVALID,
    output wire                          S_AXI_AWREADY,
 
@@ -112,14 +112,14 @@ module mig_7series_v4_2_ddr_axi_register_slice #
    input  wire [C_AXI_DATA_WIDTH-1:0]   S_AXI_WDATA,
    input  wire [C_AXI_DATA_WIDTH/8-1:0] S_AXI_WSTRB,
    input  wire                          S_AXI_WLAST,
-   input  wire [C_AXI_WUSER_WIDTH-1:0]  S_AXI_WUSER,
+   //input  wire [C_AXI_WUSER_WIDTH-1:0]  S_AXI_WUSER,
    input  wire                          S_AXI_WVALID,
    output wire                          S_AXI_WREADY,
 
    // Slave Interface Write Response Ports
    output wire [C_AXI_ID_WIDTH-1:0]    S_AXI_BID,
-   output wire [2-1:0]                 S_AXI_BRESP,
-   output wire [C_AXI_BUSER_WIDTH-1:0] S_AXI_BUSER,
+   //output wire [2-1:0]                 S_AXI_BRESP,
+   //output wire [C_AXI_BUSER_WIDTH-1:0] S_AXI_BUSER,
    output wire                         S_AXI_BVALID,
    input  wire                         S_AXI_BREADY,
 
@@ -128,22 +128,22 @@ module mig_7series_v4_2_ddr_axi_register_slice #
    input  wire [C_AXI_ADDR_WIDTH-1:0]   S_AXI_ARADDR,
    input  wire [8-1:0]                  S_AXI_ARLEN,
    input  wire [3-1:0]                  S_AXI_ARSIZE,
-   input  wire [2-1:0]                  S_AXI_ARBURST,
-   input  wire [2-1:0]                  S_AXI_ARLOCK,
-   input  wire [4-1:0]                  S_AXI_ARCACHE,
-   input  wire [3-1:0]                  S_AXI_ARPROT,
-   input  wire [4-1:0]                  S_AXI_ARREGION,
-   input  wire [4-1:0]                  S_AXI_ARQOS,
-   input  wire [C_AXI_ARUSER_WIDTH-1:0] S_AXI_ARUSER,
+   //input  wire [2-1:0]                  S_AXI_ARBURST,
+   //input  wire [2-1:0]                  S_AXI_ARLOCK,
+   //input  wire [4-1:0]                  S_AXI_ARCACHE,
+   //input  wire [3-1:0]                  S_AXI_ARPROT,
+   //input  wire [4-1:0]                  S_AXI_ARREGION,
+   //input  wire [4-1:0]                  S_AXI_ARQOS,
+   //input  wire [C_AXI_ARUSER_WIDTH-1:0] S_AXI_ARUSER,
    input  wire                          S_AXI_ARVALID,
    output wire                          S_AXI_ARREADY,
 
    // Slave Interface Read Data Ports
    output wire [C_AXI_ID_WIDTH-1:0]    S_AXI_RID,
    output wire [C_AXI_DATA_WIDTH-1:0]  S_AXI_RDATA,
-   output wire [2-1:0]                 S_AXI_RRESP,
+   //output wire [2-1:0]                 S_AXI_RRESP,
    output wire                         S_AXI_RLAST,
-   output wire [C_AXI_RUSER_WIDTH-1:0] S_AXI_RUSER,
+   //output wire [C_AXI_RUSER_WIDTH-1:0] S_AXI_RUSER,
    output wire                         S_AXI_RVALID,
    input  wire                         S_AXI_RREADY,
    
@@ -152,13 +152,13 @@ module mig_7series_v4_2_ddr_axi_register_slice #
    output wire [C_AXI_ADDR_WIDTH-1:0]   M_AXI_AWADDR,
    output wire [8-1:0]                  M_AXI_AWLEN,
    output wire [3-1:0]                  M_AXI_AWSIZE,
-   output wire [2-1:0]                  M_AXI_AWBURST,
-   output wire [2-1:0]                  M_AXI_AWLOCK,
-   output wire [4-1:0]                  M_AXI_AWCACHE,
-   output wire [3-1:0]                  M_AXI_AWPROT,
-   output wire [4-1:0]                  M_AXI_AWREGION,
-   output wire [4-1:0]                  M_AXI_AWQOS,
-   output wire [C_AXI_AWUSER_WIDTH-1:0] M_AXI_AWUSER,
+   //output wire [2-1:0]                  M_AXI_AWBURST,
+   //output wire [2-1:0]                  M_AXI_AWLOCK,
+   //output wire [4-1:0]                  M_AXI_AWCACHE,
+   //output wire [3-1:0]                  M_AXI_AWPROT,
+   //output wire [4-1:0]                  M_AXI_AWREGION,
+   //output wire [4-1:0]                  M_AXI_AWQOS,
+   //output wire [C_AXI_AWUSER_WIDTH-1:0] M_AXI_AWUSER,
    output wire                          M_AXI_AWVALID,
    input  wire                          M_AXI_AWREADY,
    
@@ -167,14 +167,14 @@ module mig_7series_v4_2_ddr_axi_register_slice #
    output wire [C_AXI_DATA_WIDTH-1:0]   M_AXI_WDATA,
    output wire [C_AXI_DATA_WIDTH/8-1:0] M_AXI_WSTRB,
    output wire                          M_AXI_WLAST,
-   output wire [C_AXI_WUSER_WIDTH-1:0]  M_AXI_WUSER,
+   //output wire [C_AXI_WUSER_WIDTH-1:0]  M_AXI_WUSER,
    output wire                          M_AXI_WVALID,
    input  wire                          M_AXI_WREADY,
    
    // Master Interface Write Response Ports
    input  wire [C_AXI_ID_WIDTH-1:0]    M_AXI_BID,
-   input  wire [2-1:0]                 M_AXI_BRESP,
-   input  wire [C_AXI_BUSER_WIDTH-1:0] M_AXI_BUSER,
+   //input  wire [2-1:0]                 M_AXI_BRESP,
+   //input  wire [C_AXI_BUSER_WIDTH-1:0] M_AXI_BUSER,
    input  wire                         M_AXI_BVALID,
    output wire                         M_AXI_BREADY,
    
@@ -183,22 +183,22 @@ module mig_7series_v4_2_ddr_axi_register_slice #
    output wire [C_AXI_ADDR_WIDTH-1:0]   M_AXI_ARADDR,
    output wire [8-1:0]                  M_AXI_ARLEN,
    output wire [3-1:0]                  M_AXI_ARSIZE,
-   output wire [2-1:0]                  M_AXI_ARBURST,
-   output wire [2-1:0]                  M_AXI_ARLOCK,
-   output wire [4-1:0]                  M_AXI_ARCACHE,
-   output wire [3-1:0]                  M_AXI_ARPROT,
-   output wire [4-1:0]                  M_AXI_ARREGION,
-   output wire [4-1:0]                  M_AXI_ARQOS,
-   output wire [C_AXI_ARUSER_WIDTH-1:0] M_AXI_ARUSER,
+   //output wire [2-1:0]                  M_AXI_ARBURST,
+   //output wire [2-1:0]                  M_AXI_ARLOCK,
+   //output wire [4-1:0]                  M_AXI_ARCACHE,
+   //output wire [3-1:0]                  M_AXI_ARPROT,
+   //output wire [4-1:0]                  M_AXI_ARREGION,
+   //output wire [4-1:0]                  M_AXI_ARQOS,
+   //output wire [C_AXI_ARUSER_WIDTH-1:0] M_AXI_ARUSER,
    output wire                          M_AXI_ARVALID,
    input  wire                          M_AXI_ARREADY,
    
    // Master Interface Read Data Ports
    input  wire [C_AXI_ID_WIDTH-1:0]    M_AXI_RID,
    input  wire [C_AXI_DATA_WIDTH-1:0]  M_AXI_RDATA,
-   input  wire [2-1:0]                 M_AXI_RRESP,
+   //input  wire [2-1:0]                 M_AXI_RRESP,
    input  wire                         M_AXI_RLAST,
-   input  wire [C_AXI_RUSER_WIDTH-1:0] M_AXI_RUSER,
+   //input  wire [C_AXI_RUSER_WIDTH-1:0] M_AXI_RUSER,
    input  wire                         M_AXI_RVALID,
    output wire                         M_AXI_RREADY
   );
@@ -209,21 +209,21 @@ module mig_7series_v4_2_ddr_axi_register_slice #
   end
 
   // Write Address Port bit positions
-  localparam C_AWUSER_RIGHT   = 0;
-  localparam C_AWUSER_LEN     = C_AXI_SUPPORTS_USER_SIGNALS*C_AXI_AWUSER_WIDTH;
-  localparam C_AWQOS_RIGHT    = C_AWUSER_RIGHT + C_AWUSER_LEN;
-  localparam C_AWQOS_LEN      = 4;
-  localparam C_AWREGION_RIGHT = C_AWQOS_RIGHT + C_AWQOS_LEN;
-  localparam C_AWREGION_LEN   = 4;
-  localparam C_AWPROT_RIGHT   = C_AWREGION_RIGHT + C_AWREGION_LEN;
-  localparam C_AWPROT_LEN     = 3;
-  localparam C_AWCACHE_RIGHT  = C_AWPROT_RIGHT + C_AWPROT_LEN;
-  localparam C_AWCACHE_LEN    = 4;
-  localparam C_AWLOCK_RIGHT   = C_AWCACHE_RIGHT + C_AWCACHE_LEN;
-  localparam C_AWLOCK_LEN     = 2;
-  localparam C_AWBURST_RIGHT  = C_AWLOCK_RIGHT + C_AWLOCK_LEN;
-  localparam C_AWBURST_LEN    = 2;
-  localparam C_AWSIZE_RIGHT   = C_AWBURST_RIGHT + C_AWBURST_LEN;
+  //localparam C_AWUSER_RIGHT   = 0;
+  //localparam C_AWUSER_LEN     = C_AXI_SUPPORTS_USER_SIGNALS*C_AXI_AWUSER_WIDTH;
+  //localparam C_AWQOS_RIGHT    = C_AWUSER_RIGHT + C_AWUSER_LEN;
+  //localparam C_AWQOS_LEN      = 4;
+  //localparam C_AWREGION_RIGHT = C_AWQOS_RIGHT + C_AWQOS_LEN;
+  //localparam C_AWREGION_LEN   = 4;
+  //localparam C_AWPROT_RIGHT   = C_AWREGION_RIGHT + C_AWREGION_LEN;
+  //localparam C_AWPROT_LEN     = 3;
+  //localparam C_AWCACHE_RIGHT  = C_AWPROT_RIGHT + C_AWPROT_LEN;
+  //localparam C_AWCACHE_LEN    = 4;
+  //localparam C_AWLOCK_RIGHT   = C_AWCACHE_RIGHT + C_AWCACHE_LEN;
+  //localparam C_AWLOCK_LEN     = 2;
+  //localparam C_AWBURST_RIGHT  = C_AWLOCK_RIGHT + C_AWLOCK_LEN;
+  //localparam C_AWBURST_LEN    = 2;
+  localparam C_AWSIZE_RIGHT   = 0; //C_AWBURST_RIGHT + C_AWBURST_LEN;
   localparam C_AWSIZE_LEN     = 3;
   localparam C_AWLEN_RIGHT    = C_AWSIZE_RIGHT + C_AWSIZE_LEN;
   localparam C_AWLEN_LEN      = 8;
@@ -238,9 +238,9 @@ module mig_7series_v4_2_ddr_axi_register_slice #
   wire [C_AW_SIZE-1:0] m_aw_data ;
   
   // Write Data Port bit positions
-  localparam C_WUSER_RIGHT   = 0;
-  localparam C_WUSER_LEN     = C_AXI_SUPPORTS_USER_SIGNALS*C_AXI_WUSER_WIDTH;
-  localparam C_WLAST_RIGHT   = C_WUSER_RIGHT + C_WUSER_LEN;
+  //localparam C_WUSER_RIGHT   = 0;
+  //localparam C_WUSER_LEN     = C_AXI_SUPPORTS_USER_SIGNALS*C_AXI_WUSER_WIDTH;
+  localparam C_WLAST_RIGHT   = 0; //C_WUSER_RIGHT + C_WUSER_LEN;
   localparam C_WLAST_LEN     = 1;
   localparam C_WSTRB_RIGHT   = C_WLAST_RIGHT + C_WLAST_LEN;
   localparam C_WSTRB_LEN     = C_AXI_DATA_WIDTH/8;
@@ -255,11 +255,11 @@ module mig_7series_v4_2_ddr_axi_register_slice #
   wire [C_W_SIZE-1:0] m_w_data;
 
   // Write Response Port bit positions
-  localparam C_BUSER_RIGHT   = 0;
-  localparam C_BUSER_LEN     = C_AXI_SUPPORTS_USER_SIGNALS*C_AXI_BUSER_WIDTH;
-  localparam C_BRESP_RIGHT   = C_BUSER_RIGHT + C_BUSER_LEN;
-  localparam C_BRESP_LEN     = 2;
-  localparam C_BID_RIGHT     = C_BRESP_RIGHT + C_BRESP_LEN;
+  //localparam C_BUSER_RIGHT   = 0;
+  //localparam C_BUSER_LEN     = C_AXI_SUPPORTS_USER_SIGNALS*C_AXI_BUSER_WIDTH;
+  //localparam C_BRESP_RIGHT   = C_BUSER_RIGHT + C_BUSER_LEN;
+  //localparam C_BRESP_LEN     = 2;
+  localparam C_BID_RIGHT     = 0; //C_BRESP_RIGHT + C_BRESP_LEN;
   localparam C_BID_LEN       = C_AXI_ID_WIDTH;
   localparam C_B_SIZE        = C_BID_RIGHT+C_BID_LEN;
 
@@ -268,21 +268,21 @@ module mig_7series_v4_2_ddr_axi_register_slice #
   wire [C_B_SIZE-1:0] m_b_data;
 
   // Read Address Port bit positions
-  localparam C_ARUSER_RIGHT   = 0;
-  localparam C_ARUSER_LEN     = C_AXI_SUPPORTS_USER_SIGNALS*C_AXI_ARUSER_WIDTH;
-  localparam C_ARQOS_RIGHT    = C_ARUSER_RIGHT + C_ARUSER_LEN;
-  localparam C_ARQOS_LEN      = 4;
-  localparam C_ARREGION_RIGHT = C_ARQOS_RIGHT + C_ARQOS_LEN;
-  localparam C_ARREGION_LEN   = 4;
-  localparam C_ARPROT_RIGHT   = C_ARREGION_RIGHT + C_ARREGION_LEN;
-  localparam C_ARPROT_LEN     = 3;
-  localparam C_ARCACHE_RIGHT  = C_ARPROT_RIGHT + C_ARPROT_LEN;
-  localparam C_ARCACHE_LEN    = 4;
-  localparam C_ARLOCK_RIGHT   = C_ARCACHE_RIGHT + C_ARCACHE_LEN;
-  localparam C_ARLOCK_LEN     = 2;
-  localparam C_ARBURST_RIGHT  = C_ARLOCK_RIGHT + C_ARLOCK_LEN;
-  localparam C_ARBURST_LEN    = 2;
-  localparam C_ARSIZE_RIGHT   = C_ARBURST_RIGHT + C_ARBURST_LEN;
+  //localparam C_ARUSER_RIGHT   = 0;
+  //localparam C_ARUSER_LEN     = C_AXI_SUPPORTS_USER_SIGNALS*C_AXI_ARUSER_WIDTH;
+  //localparam C_ARQOS_RIGHT    = C_ARUSER_RIGHT + C_ARUSER_LEN;
+  //localparam C_ARQOS_LEN      = 4;
+  //localparam C_ARREGION_RIGHT = C_ARQOS_RIGHT + C_ARQOS_LEN;
+  //localparam C_ARREGION_LEN   = 4;
+  //localparam C_ARPROT_RIGHT   = C_ARREGION_RIGHT + C_ARREGION_LEN;
+  //localparam C_ARPROT_LEN     = 3;
+  //localparam C_ARCACHE_RIGHT  = C_ARPROT_RIGHT + C_ARPROT_LEN;
+  //localparam C_ARCACHE_LEN    = 4;
+  //localparam C_ARLOCK_RIGHT   = C_ARCACHE_RIGHT + C_ARCACHE_LEN;
+  //localparam C_ARLOCK_LEN     = 2;
+  //localparam C_ARBURST_RIGHT  = C_ARLOCK_RIGHT + C_ARLOCK_LEN;
+  //localparam C_ARBURST_LEN    = 2;
+  localparam C_ARSIZE_RIGHT   = 0; //C_ARBURST_RIGHT + C_ARBURST_LEN;
   localparam C_ARSIZE_LEN     = 3;
   localparam C_ARLEN_RIGHT    = C_ARSIZE_RIGHT + C_ARSIZE_LEN;
   localparam C_ARLEN_LEN      = 8;
@@ -297,13 +297,13 @@ module mig_7series_v4_2_ddr_axi_register_slice #
   wire [C_AR_SIZE-1:0] m_ar_data;
 
   // Read Data Ports bit positions
-  localparam C_RUSER_RIGHT   = 0;
-  localparam C_RUSER_LEN     = C_AXI_SUPPORTS_USER_SIGNALS*C_AXI_RUSER_WIDTH;
-  localparam C_RLAST_RIGHT   = C_RUSER_RIGHT + C_RUSER_LEN;
+  //localparam C_RUSER_RIGHT   = 0;
+  //localparam C_RUSER_LEN     = C_AXI_SUPPORTS_USER_SIGNALS*C_AXI_RUSER_WIDTH;
+  localparam C_RLAST_RIGHT   = 0; //C_RUSER_RIGHT + C_RUSER_LEN;
   localparam C_RLAST_LEN     = 1;
-  localparam C_RRESP_RIGHT   = C_RLAST_RIGHT + C_RLAST_LEN;
-  localparam C_RRESP_LEN     = 2;
-  localparam C_RDATA_RIGHT   = C_RRESP_RIGHT + C_RRESP_LEN;
+  //localparam C_RRESP_RIGHT   = C_RLAST_RIGHT + C_RLAST_LEN;
+  //localparam C_RRESP_LEN     = 2;
+  localparam C_RDATA_RIGHT   = C_RLAST_RIGHT + C_RLAST_LEN; //C_RRESP_RIGHT + C_RRESP_LEN;
   localparam C_RDATA_LEN     = C_AXI_DATA_WIDTH;
   localparam C_RID_RIGHT     = C_RDATA_RIGHT + C_RDATA_LEN;
   localparam C_RID_LEN       = C_AXI_ID_WIDTH;
@@ -322,28 +322,30 @@ module mig_7series_v4_2_ddr_axi_register_slice #
     ///////////////////////////////////////////////////////
     
     if (C_AXI_SUPPORTS_USER_SIGNALS == 1) begin : gen_async_aw_user
-      assign s_aw_data    = {S_AXI_AWID, S_AXI_AWADDR, S_AXI_AWLEN, S_AXI_AWSIZE, 
-                             S_AXI_AWBURST, S_AXI_AWLOCK, S_AXI_AWCACHE, S_AXI_AWPROT, 
-                             S_AXI_AWREGION, S_AXI_AWQOS, S_AXI_AWUSER};
-      assign M_AXI_AWUSER = m_aw_data[C_AWUSER_RIGHT+:C_AWUSER_LEN];
+      assign s_aw_data    = {S_AXI_AWID, S_AXI_AWADDR, S_AXI_AWLEN, S_AXI_AWSIZE};
+      //assign s_aw_data    = {S_AXI_AWID, S_AXI_AWADDR, S_AXI_AWLEN, S_AXI_AWSIZE, 
+      //                       S_AXI_AWBURST, S_AXI_AWLOCK, S_AXI_AWCACHE, S_AXI_AWPROT, 
+      //                       S_AXI_AWREGION, S_AXI_AWQOS, S_AXI_AWUSER};
+      //assign M_AXI_AWUSER = m_aw_data[C_AWUSER_RIGHT+:C_AWUSER_LEN];
     end
     else begin : gen_asynch_aw_no_user
-      assign s_aw_data    = {S_AXI_AWID, S_AXI_AWADDR, S_AXI_AWLEN, S_AXI_AWSIZE, 
-                             S_AXI_AWBURST, S_AXI_AWLOCK, S_AXI_AWCACHE, S_AXI_AWPROT, 
-                             S_AXI_AWREGION, S_AXI_AWQOS};
-      assign M_AXI_AWUSER = {C_AXI_AWUSER_WIDTH{1'b0}};
+      assign s_aw_data    = {S_AXI_AWID, S_AXI_AWADDR, S_AXI_AWLEN, S_AXI_AWSIZE};
+      //assign s_aw_data    = {S_AXI_AWID, S_AXI_AWADDR, S_AXI_AWLEN, S_AXI_AWSIZE, 
+      //                       S_AXI_AWBURST, S_AXI_AWLOCK, S_AXI_AWCACHE, S_AXI_AWPROT, 
+      //                       S_AXI_AWREGION, S_AXI_AWQOS};
+      //assign M_AXI_AWUSER = {C_AXI_AWUSER_WIDTH{1'b0}};
     end
 
     assign M_AXI_AWID     = m_aw_data[C_AWID_RIGHT+:C_AWID_LEN];
     assign M_AXI_AWADDR   = m_aw_data[C_AWADDR_RIGHT+:C_AWADDR_LEN];
     assign M_AXI_AWLEN    = m_aw_data[C_AWLEN_RIGHT+:C_AWLEN_LEN];
     assign M_AXI_AWSIZE   = m_aw_data[C_AWSIZE_RIGHT+:C_AWSIZE_LEN];
-    assign M_AXI_AWBURST  = m_aw_data[C_AWBURST_RIGHT+:C_AWBURST_LEN];
-    assign M_AXI_AWLOCK   = m_aw_data[C_AWLOCK_RIGHT+:C_AWLOCK_LEN];
-    assign M_AXI_AWCACHE  = m_aw_data[C_AWCACHE_RIGHT+:C_AWCACHE_LEN];
-    assign M_AXI_AWPROT   = m_aw_data[C_AWPROT_RIGHT+:C_AWPROT_LEN];
-    assign M_AXI_AWREGION = m_aw_data[C_AWREGION_RIGHT+:C_AWREGION_LEN];
-    assign M_AXI_AWQOS    = m_aw_data[C_AWQOS_RIGHT+:C_AWQOS_LEN];
+    //assign M_AXI_AWBURST  = m_aw_data[C_AWBURST_RIGHT+:C_AWBURST_LEN];
+    //assign M_AXI_AWLOCK   = m_aw_data[C_AWLOCK_RIGHT+:C_AWLOCK_LEN];
+    //assign M_AXI_AWCACHE  = m_aw_data[C_AWCACHE_RIGHT+:C_AWCACHE_LEN];
+    //assign M_AXI_AWPROT   = m_aw_data[C_AWPROT_RIGHT+:C_AWPROT_LEN];
+    //assign M_AXI_AWREGION = m_aw_data[C_AWREGION_RIGHT+:C_AWREGION_LEN];
+    //assign M_AXI_AWQOS    = m_aw_data[C_AWQOS_RIGHT+:C_AWQOS_LEN];
     
     mig_7series_v4_2_ddr_axic_register_slice #
       (
@@ -375,12 +377,13 @@ module mig_7series_v4_2_ddr_axi_register_slice #
     //
     ///////////////////////////////////////////////////////  
     if (C_AXI_SUPPORTS_USER_SIGNALS == 1) begin : gen_async_w_user
-      assign s_w_data     = {S_AXI_WID, S_AXI_WDATA, S_AXI_WSTRB, S_AXI_WLAST, S_AXI_WUSER};
-      assign M_AXI_WUSER = m_w_data[C_WUSER_RIGHT+:C_WUSER_LEN];
+      assign s_w_data     = {S_AXI_WID, S_AXI_WDATA, S_AXI_WSTRB, S_AXI_WLAST};
+      //assign s_w_data     = {S_AXI_WID, S_AXI_WDATA, S_AXI_WSTRB, S_AXI_WLAST, S_AXI_WUSER};
+      //assign M_AXI_WUSER = m_w_data[C_WUSER_RIGHT+:C_WUSER_LEN];
     end
     else begin : gen_asynch_w_no_user
       assign s_w_data     = {S_AXI_WID, S_AXI_WDATA, S_AXI_WSTRB, S_AXI_WLAST};
-      assign M_AXI_WUSER  = {C_AXI_WUSER_WIDTH{1'b0}};
+      //assign M_AXI_WUSER  = {C_AXI_WUSER_WIDTH{1'b0}};
     end
 
     assign M_AXI_WID      = m_w_data[C_WID_RIGHT+:C_WID_LEN];
@@ -418,16 +421,18 @@ module mig_7series_v4_2_ddr_axi_register_slice #
     //
     ///////////////////////////////////////////////////////  
     if (C_AXI_SUPPORTS_USER_SIGNALS == 1) begin : gen_async_b_user
-      assign m_b_data     = {M_AXI_BID, M_AXI_BRESP, M_AXI_BUSER};
-      assign S_AXI_BUSER  = s_b_data[C_BUSER_RIGHT+:C_BUSER_LEN];
+      assign m_b_data     = {M_AXI_BID};
+      //assign m_b_data     = {M_AXI_BID, M_AXI_BRESP, M_AXI_BUSER};
+      //assign S_AXI_BUSER  = s_b_data[C_BUSER_RIGHT+:C_BUSER_LEN];
     end
     else begin : gen_asynch_b_no_user
-      assign m_b_data     = {M_AXI_BID, M_AXI_BRESP};
-      assign S_AXI_BUSER  = {C_AXI_BUSER_WIDTH{1'b0}};
+      assign m_b_data     = {M_AXI_BID};
+      //assign m_b_data     = {M_AXI_BID, M_AXI_BRESP};
+      //assign S_AXI_BUSER  = {C_AXI_BUSER_WIDTH{1'b0}};
     end
 
     assign S_AXI_BID      = s_b_data[C_BID_RIGHT+:C_BID_LEN];
-    assign S_AXI_BRESP    = s_b_data[C_BRESP_RIGHT+:C_BRESP_LEN];
+    //assign S_AXI_BRESP    = s_b_data[C_BRESP_RIGHT+:C_BRESP_LEN];
 
     mig_7series_v4_2_ddr_axic_register_slice #
       (
@@ -459,29 +464,30 @@ module mig_7series_v4_2_ddr_axi_register_slice #
     ///////////////////////////////////////////////////////  
 
     if (C_AXI_SUPPORTS_USER_SIGNALS == 1) begin : gen_async_ar_user
-      assign s_ar_data    = {S_AXI_ARID, S_AXI_ARADDR, S_AXI_ARLEN, S_AXI_ARSIZE, 
-                             S_AXI_ARBURST, S_AXI_ARLOCK, S_AXI_ARCACHE, S_AXI_ARPROT, 
-                             S_AXI_ARREGION, S_AXI_ARQOS, S_AXI_ARUSER};
-      assign M_AXI_ARUSER = m_ar_data[C_ARUSER_RIGHT+:C_ARUSER_LEN];
+      assign s_ar_data    = {S_AXI_ARID, S_AXI_ARADDR, S_AXI_ARLEN, S_AXI_ARSIZE};
+      //assign s_ar_data    = {S_AXI_ARID, S_AXI_ARADDR, S_AXI_ARLEN, S_AXI_ARSIZE, 
+      //                       S_AXI_ARBURST, S_AXI_ARLOCK, S_AXI_ARCACHE, S_AXI_ARPROT, 
+      //                       S_AXI_ARREGION, S_AXI_ARQOS, S_AXI_ARUSER};
+      //assign M_AXI_ARUSER = m_ar_data[C_ARUSER_RIGHT+:C_ARUSER_LEN];
     end
     else begin : gen_asynch_ar_no_user
-      assign s_ar_data    = {S_AXI_ARID, S_AXI_ARADDR, S_AXI_ARLEN, S_AXI_ARSIZE, 
-                             S_AXI_ARBURST, S_AXI_ARLOCK, S_AXI_ARCACHE, S_AXI_ARPROT, 
-                             S_AXI_ARREGION, S_AXI_ARQOS};
-      
-      assign M_AXI_ARUSER = {C_AXI_ARUSER_WIDTH{1'b0}};
+      assign s_ar_data    = {S_AXI_ARID, S_AXI_ARADDR, S_AXI_ARLEN, S_AXI_ARSIZE};
+      //assign s_ar_data    = {S_AXI_ARID, S_AXI_ARADDR, S_AXI_ARLEN, S_AXI_ARSIZE, 
+      //                       S_AXI_ARBURST, S_AXI_ARLOCK, S_AXI_ARCACHE, S_AXI_ARPROT, 
+      //                       S_AXI_ARREGION, S_AXI_ARQOS};
+      //assign M_AXI_ARUSER = {C_AXI_ARUSER_WIDTH{1'b0}};
     end
 
     assign M_AXI_ARID     = m_ar_data[C_ARID_RIGHT+:C_ARID_LEN];
     assign M_AXI_ARADDR   = m_ar_data[C_ARADDR_RIGHT+:C_ARADDR_LEN];
     assign M_AXI_ARLEN    = m_ar_data[C_ARLEN_RIGHT+:C_ARLEN_LEN];
     assign M_AXI_ARSIZE   = m_ar_data[C_ARSIZE_RIGHT+:C_ARSIZE_LEN];
-    assign M_AXI_ARBURST  = m_ar_data[C_ARBURST_RIGHT+:C_ARBURST_LEN];
-    assign M_AXI_ARLOCK   = m_ar_data[C_ARLOCK_RIGHT+:C_ARLOCK_LEN];
-    assign M_AXI_ARCACHE  = m_ar_data[C_ARCACHE_RIGHT+:C_ARCACHE_LEN];
-    assign M_AXI_ARPROT   = m_ar_data[C_ARPROT_RIGHT+:C_ARPROT_LEN];
-    assign M_AXI_ARREGION = m_ar_data[C_ARREGION_RIGHT+:C_ARREGION_LEN];
-    assign M_AXI_ARQOS    = m_ar_data[C_ARQOS_RIGHT+:C_ARQOS_LEN];
+    //assign M_AXI_ARBURST  = m_ar_data[C_ARBURST_RIGHT+:C_ARBURST_LEN];
+    //assign M_AXI_ARLOCK   = m_ar_data[C_ARLOCK_RIGHT+:C_ARLOCK_LEN];
+    //assign M_AXI_ARCACHE  = m_ar_data[C_ARCACHE_RIGHT+:C_ARCACHE_LEN];
+    //assign M_AXI_ARPROT   = m_ar_data[C_ARPROT_RIGHT+:C_ARPROT_LEN];
+    //assign M_AXI_ARREGION = m_ar_data[C_ARREGION_RIGHT+:C_ARREGION_LEN];
+    //assign M_AXI_ARQOS    = m_ar_data[C_ARQOS_RIGHT+:C_ARQOS_LEN];
 
     mig_7series_v4_2_ddr_axic_register_slice #
       (
@@ -513,17 +519,19 @@ module mig_7series_v4_2_ddr_axi_register_slice #
     ///////////////////////////////////////////////////////
     
     if (C_AXI_SUPPORTS_USER_SIGNALS == 1) begin : gen_async_r_user
-      assign m_r_data     = {M_AXI_RID, M_AXI_RDATA, M_AXI_RRESP, M_AXI_RLAST, M_AXI_RUSER};
-      assign S_AXI_RUSER  = s_r_data[C_RUSER_RIGHT+:C_RUSER_LEN];
+      assign m_r_data     = {M_AXI_RID, M_AXI_RDATA, M_AXI_RLAST};
+      //assign m_r_data     = {M_AXI_RID, M_AXI_RDATA, M_AXI_RRESP, M_AXI_RLAST, M_AXI_RUSER};
+      //assign S_AXI_RUSER  = s_r_data[C_RUSER_RIGHT+:C_RUSER_LEN];
     end
     else begin : gen_asynch_r_no_user
-      assign m_r_data     = {M_AXI_RID, M_AXI_RDATA, M_AXI_RRESP, M_AXI_RLAST};
-      assign S_AXI_RUSER  = {C_AXI_RUSER_WIDTH{1'b0}};
+      assign m_r_data     = {M_AXI_RID, M_AXI_RDATA, M_AXI_RLAST};
+      //assign m_r_data     = {M_AXI_RID, M_AXI_RDATA, M_AXI_RRESP, M_AXI_RLAST};
+      //assign S_AXI_RUSER  = {C_AXI_RUSER_WIDTH{1'b0}};
     end
     
     assign S_AXI_RID      = s_r_data[C_RID_RIGHT+:C_RID_LEN];
     assign S_AXI_RDATA    = s_r_data[C_RDATA_RIGHT+:C_RDATA_LEN];
-    assign S_AXI_RRESP    = s_r_data[C_RRESP_RIGHT+:C_RRESP_LEN];
+    //assign S_AXI_RRESP    = s_r_data[C_RRESP_RIGHT+:C_RRESP_LEN];
     assign S_AXI_RLAST    = s_r_data[C_RLAST_RIGHT+:C_RLAST_LEN];
 
     mig_7series_v4_2_ddr_axic_register_slice #

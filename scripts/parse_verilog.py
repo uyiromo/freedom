@@ -61,7 +61,11 @@ if __name__ == "__main__":
     module = None
     depth  = 0
 
-    for (line_no, line) in enumerate(lines[7:]):
+    for (line_no, line) in enumerate(lines):
+        # ignore comment lines
+        if line.startswith("`"):
+            continue
+
         # ignore comments
         p = line.find(" // @")
         line = line[:p]
