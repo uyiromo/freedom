@@ -33,7 +33,7 @@ SBT ?= java -jar $(rocketchip_dir)/sbt-launch.jar
 # Build firrtl.jar and put it where chisel3 can find it.
 ROCKET_CLASSES ?= "$(rocketchip_dir)/target/scala-2.12/classes:$(rocketchip_dir)/chisel3/target/scala-2.12/*"
 FIRRTL_JAR ?= $(rocketchip_dir)/firrtl/utils/bin/firrtl.jar
-FIRRTL ?= java -Xmx2G -Xss8M -XX:MaxPermSize=256M -cp $(FIRRTL_JAR):$(ROCKET_CLASSES) firrtl.Driver
+FIRRTL ?= java -Xmx8G -Xss8M -XX:MaxPermSize=256M -cp $(FIRRTL_JAR):$(ROCKET_CLASSES) firrtl.Driver
 
 $(FIRRTL_JAR): $(shell find $(rocketchip_dir)/firrtl/src/main/scala -iname "*.scala")
 	$(MAKE) -C $(rocketchip_dir)/firrtl SBT="$(SBT)" root_dir=$(rocketchip_dir)/firrtl build-scala
@@ -116,3 +116,4 @@ ifneq ($(BOOTROM_DIR),"")
 endif
 	$(MAKE) -C $(FPGA_DIR) clean
 	rm -rf $(BUILD_DIR)
+	rm -rf *.fir *.log *.jou *.anno.json *.v *.f
