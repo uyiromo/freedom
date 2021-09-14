@@ -15,10 +15,10 @@
 	url = https://github.com/uyiromo/ILA.git
 [submodule "sifive-cache"]
 	path = sifive-cache
-	url = https://github.com/uyiromo/block-inclusivecache-sifive-private.git
+	url = https://github.com/uyiromo/block-inclusivecache-sifive.git
 [submodule "fpga-shells"]
 	path = fpga-shells
-	url = https://github.com/uyiromo/fpga-shells-private.git
+	url = https://github.com/uyiromo/fpga-shells.git
 [submodule "OpenMPE"]
 	path = OpenMPE
-	url = https://github.com/uyiromo/OpenMPE-private.git
+	url = https://github.com/uyiromo/OpenMPE.git
