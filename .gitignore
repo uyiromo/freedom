@@ -13,6 +13,14 @@ AnalogToUInt_1.v
 UIntToAnalog_1.v
 firrtl_black_box_resource_files.f
 plusarg_reader.v
+FCFSArbiter.v
+GModOpt.v
+GMulOpt.v
+*.wcfg
+
+# scripts
+scripts/BootROM.v
+scripts/verilog
 
 # temporary
 /tmp
