@@ -235,199 +235,182 @@ struct nvmmctr {
     __asm__ __volatile__ ("rdcycle t1\n" ::: "t1");                     \
     __asm__ __volatile__ ("lui t1, " #NUM  ::: "t1");
 
-
-void
-init_metadata(unsigned long *addr, unsigned long tag)
+int main(int hartid)
 {
-    unsigned char *cacheline = (unsigned char *) addr;
-    *((volatile unsigned long *) (cacheline + 0x00000000UL)) = (1UL << 0) | (1UL << 56);  // 0, 56
-    *((volatile unsigned long *) (cacheline + 0x00000008UL)) = (1UL << 48);               // 112
-    *((volatile unsigned long *) (cacheline + 0x00000010UL)) = (1UL << 40);               // 168
-    *((volatile unsigned long *) (cacheline + 0x00000018UL)) = (1UL << 32);               // 224
-    *((volatile unsigned long *) (cacheline + 0x00000020UL)) = (1UL << 24);               // 280
-    *((volatile unsigned long *) (cacheline + 0x00000028UL)) = (1UL << 16);               // 336
-    *((volatile unsigned long *) (cacheline + 0x00000030UL)) = (1UL <<  8);               // 392
-    *((volatile unsigned long *) (cacheline + 0x00000038UL)) = tag; //tag;
+    const unsigned long KiB = 1024;
+    const unsigned long MiB = 1024 * 1024;
+    const unsigned long GiB = 1024 * 1024 * 1024;
 
-    return;
-}
-
-
-
-
-int main(void)
-{
     struct nvmmctr *nc = (struct nvmmctr *) (0x64003000UL);
     volatile unsigned char *dram_base = (unsigned char *) (0x80000000UL);
-    volatile unsigned char *nvmm_base = (unsigned char *) (0xC0000000UL);
-    volatile unsigned char *flush64 = (unsigned char *) (0x02010000UL + 0x200UL);
+    volatile unsigned char *nvmm_base = (unsigned char *) (dram_base + 4 * 512*MiB);
+    volatile unsigned char *protected_base = (unsigned char *) (dram_base + 2 * 512*MiB);
 
-    const unsigned int KiB = 1024;
-    const unsigned int MiB = 1024 * 1024;
-    const unsigned int GiB = 1024 * 1024 * 1024;
+    volatile unsigned char *bank0 = (unsigned char *) (0x80000000UL + 512*MiB * 0);
+    volatile unsigned char *bank1 = (unsigned char *) (0x80000000UL + 512*MiB * 1);
+    volatile unsigned char *bank2 = (unsigned char *) (0x80000000UL + 512*MiB * 2);
+    volatile unsigned char *bank3 = (unsigned char *) (0x80000000UL + 512*MiB * 3);
+    volatile unsigned char *bank4 = (unsigned char *) (0x80000000UL + 512*MiB * 4);
+    volatile unsigned char *bank5 = (unsigned char *) (0x80000000UL + 512*MiB * 5);
+    volatile unsigned char *bank6 = (unsigned char *) (0x80000000UL + 512*MiB * 6);
+    volatile unsigned char *bank7 = (unsigned char *) (0x80000000UL + 512*MiB * 7);
 
-
-    /* nvmm begin from 0xC000_0000 */
-/*
-    nc->nvmm_begin = 2;
-    nc->lat_cr     = 100;
-    nc->lat_cw     = 110;
+#if 1
+    /* DCPMM starts from Bank#4 (0x1_0000_0000) */
+    nc->nvmm_begin = 4;
+    nc->lat_cr     = 0;
+    nc->lat_cw     = 0;
     nc->lat_tRCD2  = 0;
     nc->lat_tRP2   = 0;
     nc->lat_tRAS2  = 0;
+    nc->lat_dr256  = 176;
+    nc->lat_dr4096 = 240;
+    nc->lat_dw256  = 128;
+    nc->lat_dw4096 = 324;
+
+    unsigned long offset, stride;
+
+    stride = 64;
     CHECKPOINT(0x00000);
-    for (unsigned long off = 0; off < 4096; off += 64) {
-        *((volatile unsigned long *) (nvmm_base + off)) = off;
+    for (offset = 0; offset < stride * 8; offset += stride) {
+        *((volatile unsigned long *) (bank3 + offset)) = offset;
     }
-    for (unsigned long off = 0; off < 4096; off += 64) {
-        *((volatile unsigned long *) flush64) = (unsigned long)(nvmm_base + off);
-    }
+    __asm__ __volatile__ (".insn i 0x73, 0, x0, x0, -0x340 \n\t");
+
+    stride = 256;
     CHECKPOINT(0x11111);
-*/
-/*
+    for (offset = 0; offset < stride * 8; offset += stride) {
+        *((volatile unsigned long *) (bank3 + offset)) = offset;
+    }
+    __asm__ __volatile__ (".insn i 0x73, 0, x0, x0, -0x340 \n\t");
+
+    stride = 4096;
+    CHECKPOINT(0x22222);
+    for (offset = 0; offset < stride * 8; offset += stride) {
+        *((volatile unsigned long *) (bank3 + offset)) = offset;
+    }
+    __asm__ __volatile__ (".insn i 0x73, 0, x0, x0, -0x340 \n\t");
+
+    stride = 64*KiB;
+    CHECKPOINT(0x33333);
+    for (offset = 0; offset < stride * 8; offset += stride) {
+        *((volatile unsigned long *) (bank3 + offset)) = offset;
+    }
+    __asm__ __volatile__ (".insn i 0x73, 0, x0, x0, -0x340 \n\t");
+
+    // -------------------------------------------
+
+    stride = 64;
+    CHECKPOINT(0x44444);
+    for (offset = 0; offset < stride * 8; offset += stride) {
+        *((volatile unsigned long *) (bank4 + offset)) = offset;
+    }
+    __asm__ __volatile__ (".insn i 0x73, 0, x0, x0, -0x340 \n\t");
+
+    stride = 256;
+    CHECKPOINT(0x55555);
+    for (offset = 0; offset < stride * 8; offset += stride) {
+        *((volatile unsigned long *) (bank4 + offset)) = offset;
+    }
+    __asm__ __volatile__ (".insn i 0x73, 0, x0, x0, -0x340 \n\t");
+
+    stride = 4096;
+    CHECKPOINT(0x66666);
+    for (offset = 0; offset < stride * 8; offset += stride) {
+        *((volatile unsigned long *) (bank4 + offset)) = offset;
+    }
+    __asm__ __volatile__ (".insn i 0x73, 0, x0, x0, -0x340 \n\t");
+
+
+    stride = 64*KiB;
+    CHECKPOINT(0x77777);
+    for (offset = 0; offset < stride * 8; offset += stride) {
+        *((volatile unsigned long *) (bank4 + offset)) = offset;
+    }
+    __asm__ __volatile__ (".insn i 0x73, 0, x0, x0, -0x340 \n\t");
+
+#endif
+
+
+#if 0
+    /* NVMM starts from Bank#2 (0xC000_0000) */
     nc->nvmm_begin = 2;
     nc->lat_cr     = 0;
     nc->lat_cw     = 0;
-    nc->lat_tRCD2  = 120;
-    nc->lat_tRP2   = 130;
-    nc->lat_tRAS2  = 140;
-    CHECKPOINT(0x22222);
-    for (unsigned long off = 4096; off < 4096 + 4096; off += 64) {
-        *((volatile unsigned long *) (nvmm_base + off)) = off;
-    }
-    for (unsigned long off = 4096; off < 4096 + 4096; off += 64) {
-        *((volatile unsigned long *) flush64) = (unsigned long)(nvmm_base + off);
-    }
-    CHECKPOINT(0x33333);
-*/
+    nc->lat_tRCD2  = 0;
+    nc->lat_tRP2   = 0;
+    nc->lat_tRAS2  = 0;
 
-
-#if 1
-    volatile unsigned long initroot    = 0xC0000000UL + 0x07FFF000UL;
-    //volatile unsigned long disableTree = 0xC0000000UL + 0x07FFF040UL;
-    //volatile unsigned long enableTree  = 0xC0000000UL + 0x07FFF080UL;
+    unsigned int range, stride;
+    volatile unsigned long acc;
+    volatile unsigned long initroot = 0xC0000000UL + 0x07FFF000UL;
 
     // Initialize root
     *((volatile unsigned long *) (initroot)) = 0xFUL;
     __asm__ __volatile__ (".insn i 0x73, 0, x0, %0, -0x340 \n\t" :: "r"(initroot));
-    *((volatile unsigned long *) flush64) = (unsigned long)(initroot);
     __asm__ __volatile__ ("fence rw,rw\n");
     __asm__ __volatile__ ("fence.i" : : : "memory");
 
-
-    unsigned int range, stride;
-#if 0
-    stride = 256*KiB;
-    range  = stride * 32;
-    CHECKPOINT(0x11111);
-    for (unsigned long off = 0; off < range; off += stride) {
-        *((volatile unsigned long *) (dram_base + off)) = off;
-    }
-    CHECKPOINT(0x22222);
-    for (unsigned long off = 0; off < range; off += stride) {
-        *((volatile unsigned long *) flush64) = (unsigned long)(dram_base + off);
-    }
-    CHECKPOINT(0x33333);
-
-    stride = 4*KiB;
+    //
+    // Write into SAME Trees 8 times
+    //
+    stride = 64;
     range  = stride * 8;
     CHECKPOINT(0x11111);
     for (unsigned long off = 0; off < range; off += stride) {
-        *((volatile unsigned long *) (nvmm_base + off)) = off;
+        *((volatile unsigned long *) (protected_base + off)) = off;
     }
     CHECKPOINT(0x22222);
-    for (unsigned long off = 0; off < range; off += stride) {
-        *((volatile unsigned long *) flush64) = (unsigned long)(nvmm_base + off);
-    }
+    __asm__ __volatile__ (".insn i 0x73, 0, x0, x0, -0x340 \n\t");
     CHECKPOINT(0x33333);
+    for (unsigned long off = 0; off < range; off += stride) {
+        acc += *((volatile unsigned long *) (protected_base + off));
+    }
 
 
+    //
+    // Write into DIFFERENT Trees 8 times
+    //
     stride = 256*KiB;
     range  = stride * 8;
     CHECKPOINT(0x44444);
     for (unsigned long off = 0; off < range; off += stride) {
-        *((volatile unsigned long *) (nvmm_base + off)) = off;
+        *((volatile unsigned long *) (protected_base + off)) = off;
     }
     CHECKPOINT(0x55555);
-    for (unsigned long off = 0; off < range; off += stride) {
-        *((volatile unsigned long *) flush64) = (unsigned long)(nvmm_base + off);
-    }
+    __asm__ __volatile__ (".insn i 0x73, 0, x0, x0, -0x340 \n\t");
     CHECKPOINT(0x66666);
-#endif
 
-    /*
-    for (int block = 2; block <= 16; block *= 2) {
-        unsigned long acc = 0;
-
-        // warm up TLB
-        for (int i = 0; i < block; ++i)
-            acc += *((volatile unsigned long *) (nvmm_base + i*512*KiB + 0*64));
-        for (int i = 0; i < block; ++i)
-            *((volatile unsigned long *) flush64) = 0xC0000000UL + i*512*KiB + 0*64;
-
-        CHECKPOINT(0x11111);
-        for (int i = 0; i < block; ++i)
-            *((volatile unsigned long *) (nvmm_base + i*512*KiB + 0*64)) = i;
-        CHECKPOINT(0x22222);
-        for (int i = 0; i < block; ++i)
-            *((volatile unsigned long *) flush64) = 0xC0000000UL + i*512*KiB + 0*64;
-        CHECKPOINT(0x33333);
-    }
-    */
-
-
-
-    /*
-    // crash Tag
-    volatile unsigned long tag = 0xC0000000UL + 0x06000000UL;
-    *((volatile unsigned long *) (tag)) = 0xFUL;
-    __asm__ __volatile__ (".insn i 0x73, 0, x0, %0, -0x340 \n\t" :: "r"(tag));
-    *((volatile unsigned long *) flush64) = (unsigned long)(tag);
+    //
+    // crash L2 (first 32K * 2)
+    //
+    volatile unsigned long l2 = 0xC0000000UL + 0x07FF8000UL;
+    *((volatile unsigned long *) (l2)) = 0xFUL;
+    __asm__ __volatile__ (".insn i 0x73, 0, x0, %0, -0x340 \n\t" :: "r"(l2));
     __asm__ __volatile__ ("fence rw,rw\n");
     __asm__ __volatile__ ("fence.i" : : : "memory");
     CHECKPOINT(0x77777);
-    */
 
-
-    stride = 64;
-    range  = stride * 4;
-    CHECKPOINT(0x88888);
+    //
+    // Read from corrupted Tree
+    //
+    stride = 8*KiB;
+    range  = stride * 8;
+    CHECKPOINT(0x11111);
     for (unsigned long off = 0; off < range; off += stride) {
-        *((volatile unsigned long *) (nvmm_base + off)) = off;
+        *((volatile unsigned long *) (protected_base + off + 1*KiB)) = off;
     }
-    CHECKPOINT(0x99999);
-    for (unsigned long off = 0; off < range; off += stride) {
-        *((volatile unsigned long *) flush64) = (unsigned long)(nvmm_base + off);
-    }
-    CHECKPOINT(0xAAAAA);
-
-    CHECKPOINT(0x88888);
-    for (unsigned long off = 0; off < range; off += stride) {
-        *((volatile unsigned long *) (dram_base + off)) = off;
-    }
-    CHECKPOINT(0x99999);
-    for (unsigned long off = 0; off < range; off += stride) {
-        *((volatile unsigned long *) flush64) = (unsigned long)(dram_base + off);
-    }
-    CHECKPOINT(0xAAAAA);
+    CHECKPOINT(0x22222);
+    __asm__ __volatile__ (".insn i 0x73, 0, x0, x0, -0x340 \n\t");
+    CHECKPOINT(0x33333);
 
 
-    CHECKPOINT(0xFFFFF);
-    /*
-     * -END-: MPE sequential test (range: 4 KiB, stride: 64 B)
-     */
-#endif
+    //
+    // Read from CRASHED Tree
+    //
+    /* unimplemented */
 
-
-
-
-
-
-
-
-
-
-
+#endif // Integrity Test or not
 
 
 /*
@@ -447,6 +430,9 @@ int main(void)
 
 	kputs("BOOT");
 */
+
+    // END marker
+    CHECKPOINT(0xFFFFF);
 	__asm__ __volatile__ ("fence.i" : : : "memory");
 	return 0;
 }
