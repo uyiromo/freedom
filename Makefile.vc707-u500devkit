@@ -29,7 +29,6 @@ VSRCS := \
     $(base_dir)/GMulOpt.v \
     $(base_dir)/GModOpt.v
 
-#PATCHVERILOG = ./scripts/connect_nvmmctr_mig.sh
-#PATCHVERILOG = ./scripts/connect_nvmmctr_mig-pcie.sh
+PATCHVERILOG = ./scripts/connect_nvmmctr_mig-pcie.sh
 
 include common.mk

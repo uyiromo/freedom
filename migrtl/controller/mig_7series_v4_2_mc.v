@@ -245,24 +245,28 @@ output  reg   [DATA_BUF_OFFSET_WIDTH-1:0] wr_data_offset /* synthesis syn_maxfan
     input [6*RANKS-1:0]                       calib_rd_data_offset,
     input [6*RANKS-1:0]                       calib_rd_data_offset_1,
     input [6*RANKS-1:0]                       calib_rd_data_offset_2,
-    input  [ 4:0] tRCD2,
-    input  [ 4:0] tRP2,
+    input  [ 7:0] tRCD2,
+    input  [ 7:0] tRP2,
+    input  [10:0] tRAS2,
     input  [ 2:0] nvmm_begin,
     input  [ 7:0] bank_dirty
   );
 
-   reg [ 4:0] tRCD2_r;
-   reg [ 4:0] tRP2_r;
+   reg [ 7:0] tRCD2_r;
+   reg [ 7:0] tRP2_r;
+   reg [10:0] tRAS2_r;
    //reg [2:0]  nvmm_begin_r;
    //reg [ 7:0] bank_dirty_r;
 
-   wire [ 4:0] tRCD2_i;
-   wire [ 4:0] tRP2_i;
+   wire [ 7:0] tRCD2_i;
+   wire [ 7:0] tRP2_i;
+   wire [10:0] tRAS2_i;
    wire [ 2:0]  nvmm_begin_i;
    wire [ 7:0] bank_dirty_i;
 
    assign tRCD2_i      = tRCD2_r;
    assign tRP2_i       = tRP2_r;
+   assign tRAS2_i      = tRAS2_r;
    assign nvmm_begin_i = nvmm_begin;
    assign bank_dirty_i = bank_dirty;
 
@@ -270,10 +274,10 @@ output  reg   [DATA_BUF_OFFSET_WIDTH-1:0] wr_data_offset /* synthesis syn_maxfan
    begin
       tRCD2_r      <= tRCD2;
       tRP2_r       <= tRP2;
+      tRAS2_r      <= tRAS2;
       //nvmm_begin_r <= nvmm_begin;
       //bank_dirty_r <= bank_dirty;
    end
-
 
   assign mc_reset_n = 1'b1;   // never reset memory
   assign mc_cmd_wren = 1'b1;  // always write CMD FIFO(issue DSEL when idle)
@@ -773,6 +777,7 @@ output  reg   [DATA_BUF_OFFSET_WIDTH-1:0] wr_data_offset /* synthesis syn_maxfan
         .use_addr              (use_addr),
         .tRCD2(tRCD2_i),
         .tRP2(tRP2_i),
+        .tRAS2(tRAS2_i),
         .nvmm_begin(nvmm_begin_i),
         .bank_dirty(bank_dirty_i)
       );

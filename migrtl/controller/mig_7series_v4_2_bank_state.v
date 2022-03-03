@@ -181,12 +181,13 @@ module mig_7series_v4_2_bank_state #
   q_has_priority, req_priority_r, idle_ns, demand_priority_in, inhbt_rd,
   inhbt_wr, dq_busy_data, rnk_config_strobe, rnk_config_valid_r, rnk_config,
   rnk_config_kill_rts_col, phy_mc_cmd_full, phy_mc_ctl_full, phy_mc_data_full,
-   tRCD2, tRP2
+   tRCD2, tRP2, tRAS2, maint_req_r
   );
 
    input  [ 7:0]  tRCD2;
    input  [ 7:0]  tRP2;
-
+   input [10:0]   tRAS2;
+   input          maint_req_r;
 
   function integer clogb2 (input integer size); // ceiling logb2
     begin
@@ -368,10 +369,8 @@ module mig_7series_v4_2_bank_state #
     else begin
       ras_timer_ns = ras_timer_r;
 
-      //if (start_rcd_lcl) ras_timer_ns =
-      //     nRAS_CLKS[RAS_TIMER_WIDTH-1:0] + tRAS2 - TWO[RAS_TIMER_WIDTH-1:0];
       if (start_rcd_lcl) ras_timer_ns =
-           nRAS_CLKS[RAS_TIMER_WIDTH-1:0] - TWO[RAS_TIMER_WIDTH-1:0];
+           nRAS_CLKS[RAS_TIMER_WIDTH-1:0] + tRAS2 - TWO[RAS_TIMER_WIDTH-1:0];
       if (start_wtp_timer) ras_timer_ns =
             // As the timer is being reused, it is essential to compare
             // before new value is loaded.
@@ -379,7 +378,7 @@ module mig_7series_v4_2_bank_state #
                                          : ras_timer_r - ONE[RAS_TIMER_WIDTH-1:0];
 
       if (|ras_timer_r && ~start_wtp_timer) ras_timer_ns =
-           ras_timer_r - ONE[RAS_TIMER_WIDTH-1:0];
+                      ((maint_req_r | pre_wait_ns) & ras_timer_r > 'd5) ? 'd5 : ras_timer_r - ONE[RAS_TIMER_WIDTH-1:0];
     end
   end // always @ (...
   wire [RAS_TIMER_WIDTH-1:0] ras_timer_passed_ns = rcv_open_bank
@@ -423,7 +422,7 @@ module mig_7series_v4_2_bank_state #
                          : ras_timer_r - ONE[RAS_TIMER_WIDTH-1:0];
         end
 
-      if (|rtp_timer_r)   rtp_timer_ns = rtp_timer_r - ONE[RTP_TIMER_WIDTH-1:0];
+      if (|rtp_timer_r)   rtp_timer_ns = (maint_req_r & rtp_timer_r > 'd2) ? 'd2 : rtp_timer_r - ONE[RTP_TIMER_WIDTH-1:0];
     end
   end
   always @(posedge clk) rtp_timer_r <= #TCQ rtp_timer_ns;

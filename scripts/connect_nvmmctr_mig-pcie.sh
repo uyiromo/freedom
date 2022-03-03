@@ -30,23 +30,23 @@ sed -i -e 's/IBUF_DELAY_VALUE(0)/IBUF_DELAY_VALUE("0")/g' $v
 
 # delete all I/O ports from VC707PCIeShell
 #  input  [2:0]  ddr_nvmm_begin,
-#  input  [7:0]  ddr_lat_fr,
-#  input  [7:0]  ddr_lat_fw,
+#  input  [9:0]  ddr_lat_fr,
+#  input  [9:0]  ddr_lat_fw,
 #  output [63:0] ddr_cnt_act,
 sed -i -E "s/(input  \[2:0\]  ddr_nvmm_)/\/\/\1/g" $v
-sed -i -E "s/(input  \[7:0\]  ddr_tRCD2)/\/\/\1/g"  $v
-sed -i -E "s/(input  \[7:0\]  ddr_tRP2)/\/\/\1/g"  $v
+sed -i -E "s/(input  \[9:0\]  ddr_tRCD2)/\/\/\1/g"  $v
+sed -i -E "s/(input  \[9:0\]  ddr_tRP2)/\/\/\1/g"  $v
 sed -i -E "s/(input  \[10:0\] ddr_tRAS2)/\/\/\1/g"  $v
-sed -i -E "s/(output \[63:0\] ddr_cnt_)/\/\/\1/g"  $v
+sed -i -E "s/(output \[39:0\] ddr_cnt_)/\/\/\1/g"  $v
 
 # delete all wires from VC707PCIeShell
 #  wire [2:0] topDesign_auto_topMod_io_out_0_port_nvmm_begin;
-#  wire [7:0] topDesign_auto_topMod_io_out_0_port_lat_fr;
-#  wire [7:0] topDesign_auto_topMod_io_out_0_port_lat_fw;
+#  wire [9:0] topDesign_auto_topMod_io_out_0_port_lat_fr;
+#  wire [9:0] topDesign_auto_topMod_io_out_0_port_lat_fw;
 #  wire [63:0] topDesign_auto_topMod_io_out_0_port_cnt_act;
 sed -i -E "s/(wire \[2:0\] topDesign_auto_topMod_io_out_0_port_nvmm_)/\/\/\1/g" $v
-sed -i -E "s/(wire \[7:0\] topDesign_auto_topMod_io_out_0_port_tRCD2)/\/\/\1/g" $v
-sed -i -E "s/(wire \[7:0\] topDesign_auto_topMod_io_out_0_port_tRP2)/\/\/\1/g" $v
+sed -i -E "s/(wire \[9:0\] topDesign_auto_topMod_io_out_0_port_tRCD2)/\/\/\1/g" $v
+sed -i -E "s/(wire \[9:0\] topDesign_auto_topMod_io_out_0_port_tRP2)/\/\/\1/g" $v
 sed -i -E "s/(wire \[10:0\] topDesign_auto_topMod_io_out_0_port_tRAS2)/\/\/\1/g" $v
 sed -i -E "s/(wire \[63:0\] topDesign_auto_topMod_io_out_0_port_cnt_)/\/\/\1/g" $v
 
@@ -84,19 +84,19 @@ sed -i -E "s/(assign topDesign_auto_topMod_io_out_0_port_tRAS2)/\/\/\1/g" $v
 
 # delete all I/O ports from DevKitWrapper
 #  input  [2:0]  auto_topMod_io_out_0_port_nvmm_begin,
-#  input  [7:0]  auto_topMod_io_out_0_port_lat_fr,
-#  input  [7:0]  auto_topMod_io_out_0_port_lat_fw,
+#  input  [9:0]  auto_topMod_io_out_0_port_lat_fr,
+#  input  [9:0]  auto_topMod_io_out_0_port_lat_fw,
 #  output [63:0] auto_topMod_io_out_0_port_cnt_act,
 sed -i -E "s/(input  \[2:0\]  auto_topMod_io_out_0_port_nvmm_)/\/\/\1/g" $v
-sed -i -E "s/(input  \[7:0\]  auto_topMod_io_out_0_port_tRCD2)/\/\/\1/g" $v
-sed -i -E "s/(input  \[7:0\]  auto_topMod_io_out_0_port_tRP2)/\/\/\1/g" $v
+sed -i -E "s/(input  \[9:0\]  auto_topMod_io_out_0_port_tRCD2)/\/\/\1/g" $v
+sed -i -E "s/(input  \[9:0\]  auto_topMod_io_out_0_port_tRP2)/\/\/\1/g" $v
 sed -i -E "s/(input  \[10:0\] auto_topMod_io_out_0_port_tRAS2)/\/\/\1/g" $v
 sed -i -E "s/(output \[63:0\] auto_topMod_io_out_0_port_cnt_)/\/\/\1/g" $v
 
 # delete all wires from DevKitWrapper
 #  wire [2:0] topMod_auto_io_out_0_port_nvmm_begin;
-#  wire [7:0] topMod_auto_io_out_0_port_lat_fr;
-#  wire [7:0] topMod_auto_io_out_0_port_lat_fw;
+#  wire [9:0] topMod_auto_io_out_0_port_lat_fr;
+#  wire [9:0] topMod_auto_io_out_0_port_lat_fw;
 #  wire [63:0] topMod_auto_io_out_0_port_cnt_act;
 #  wire [63:0] topMod_nvmmctr_io_nvmm_begin;
 #  wire [63:0] topMod_nvmmctr_io_lat_cr;
@@ -113,13 +113,13 @@ sed -i -E "s/(output \[63:0\] auto_topMod_io_out_0_port_cnt_)/\/\/\1/g" $v
 #  wire [63:0] topMod_nvmmctr_io_cnt_bdr;
 #  wire [63:0] topMod_nvmmctr_io_cnt_bdw;
 sed -i -E "s/(wire \[2:0\] topMod_auto_io_out_0_port_nvmm_)/\/\/\1/g" $v
-sed -i -E "s/(wire \[7:0\] topMod_auto_io_out_0_port_tRCD2)/\/\/\1/g" $v
-sed -i -E "s/(wire \[7:0\] topMod_auto_io_out_0_port_tRP2)/\/\/\1/g" $v
+sed -i -E "s/(wire \[9:0\] topMod_auto_io_out_0_port_tRCD2)/\/\/\1/g" $v
+sed -i -E "s/(wire \[9:0\] topMod_auto_io_out_0_port_tRP2)/\/\/\1/g" $v
 sed -i -E "s/(wire \[10:0\] topMod_auto_io_out_0_port_tRAS2)/\/\/\1/g" $v
 sed -i -E "s/(wire \[63:0\] topMod_auto_io_out_0_port_cnt_)/\/\/\1/g" $v
 sed -i -E "s/(wire \[2:0\] topMod_nvmmctr_io_nvmm_)/\/\/\1/g" $v
-sed -i -E "s/(wire \[7:0\] topMod_nvmmctr_io_tRCD2)/\/\/\1/g" $v
-sed -i -E "s/(wire \[7:0\] topMod_nvmmctr_io_tRP2)/\/\/\1/g" $v
+sed -i -E "s/(wire \[9:0\] topMod_nvmmctr_io_tRCD2)/\/\/\1/g" $v
+sed -i -E "s/(wire \[9:0\] topMod_nvmmctr_io_tRP2)/\/\/\1/g" $v
 sed -i -E "s/(wire \[10:0\] topMod_nvmmctr_io_tRAS2)/\/\/\1/g" $v
 sed -i -E "s/(wire \[63:0\] topMod_nvmmctr_io_cnt_)/\/\/\1/g" $v
 
@@ -180,8 +180,8 @@ sed -i -E "s/(assign topMod_nvmmctr_io_cnt_)/\/\/\1/g" $v
 
 # delete all I/O ports
 #  input  [2:0]  auto_io_out_0_port_nvmm_begin,
-#  input  [7:0]  auto_io_out_0_port_lat_fr,
-#  input  [7:0]  auto_io_out_0_port_lat_fw,
+#  input  [9:0]  auto_io_out_0_port_lat_fr,
+#  input  [9:0]  auto_io_out_0_port_lat_fw,
 #  output [63:0] auto_io_out_0_port_cnt_act,
 #  output [63:0] nvmmctr_io_nvmm_begin,
 #  output [63:0] nvmmctr_io_lat_cr,
@@ -198,12 +198,12 @@ sed -i -E "s/(assign topMod_nvmmctr_io_cnt_)/\/\/\1/g" $v
 #  input  [63:0] nvmmctr_io_cnt_bdr,
 #  input  [63:0] nvmmctr_io_cnt_bdw
 sed -i -E "s/(input  \[2:0\]  auto_io_out_0_port_nvmm_)/\/\/\1/g" $v
-sed -i -E "s/(input  \[7:0\]  auto_io_out_0_port_tRCD2)/\/\/\1/g" $v
-sed -i -E "s/(input  \[7:0\]  auto_io_out_0_port_tRP2)/\/\/\1/g" $v
+sed -i -E "s/(input  \[9:0\]  auto_io_out_0_port_tRCD2)/\/\/\1/g" $v
+sed -i -E "s/(input  \[9:0\]  auto_io_out_0_port_tRP2)/\/\/\1/g" $v
 sed -i -E "s/(input  \[10:0\] auto_io_out_0_port_tRAS2)/\/\/\1/g" $v
 sed -i -E "s/(output \[63:0\] auto_io_out_0_port_cnt_)/\/\/\1/g" $v
 sed -i -E "s/(output \[2:0\]  nvmmctr_io_nvmm_)/\/\/\1/g" $v
-sed -i -E "s/(output \[7:0\]  nvmmctr_io_lat_)/\/\/\1/g" $v
+sed -i -E "s/(output \[9:0\]  nvmmctr_io_lat_)/\/\/\1/g" $v
 sed -i -E "s/(output \[10:0\] nvmmctr_io_lat_)/\/\/\1/g" $v
 sed -i -E "s/(input  \[63:0\] nvmmctr_io_cnt_)/\/\/\1/g" $v
 sed -i -E "s/output        debug_ndreset,/output        debug_ndreset/g" $v
@@ -211,11 +211,11 @@ sed -i -E "s/output        debug_ndreset,/output        debug_ndreset/g" $v
 
 # delete all wires from DevKitFPGADesign
 #  wire [2:0] mig_io_port_nvmm_begin;
-#  wire [7:0] mig_io_port_lat_fr;
-#  wire [7:0] mig_io_port_lat_fw;
+#  wire [9:0] mig_io_port_lat_fr;
+#  wire [9:0] mig_io_port_lat_fw;
 #  wire [63:0] mig_io_port_cnt_act;
-#  wire [7:0] mig_io_port_lat_cr;
-#  wire [7:0] mig_io_port_lat_cw;
+#  wire [9:0] mig_io_port_lat_cr;
+#  wire [9:0] mig_io_port_lat_cw;
 #  wire [63:0] mig_io_port_lat_dr256;
 #  wire [63:0] mig_io_port_lat_dr4096;
 #  wire [63:0] mig_io_port_lat_dw256;
@@ -225,8 +225,8 @@ sed -i -E "s/output        debug_ndreset,/output        debug_ndreset/g" $v
 #  wire [63:0] mig_io_port_cnt_bdr;
 #  wire [63:0] mig_io_port_cnt_bdw;
 sed -i -E "s/(wire \[2:0\] mig_io_port_nvmm_)/\/\/\1/g" $v
-sed -i -E "s/(wire \[7:0\] mig_io_port_tRCD2)/\/\/\1/g" $v
-sed -i -E "s/(wire \[7:0\] mig_io_port_tRP2)/\/\/\1/g" $v
+sed -i -E "s/(wire \[9:0\] mig_io_port_tRCD2)/\/\/\1/g" $v
+sed -i -E "s/(wire \[9:0\] mig_io_port_tRP2)/\/\/\1/g" $v
 sed -i -E "s/(wire \[10:0\] mig_io_port_tRAS2)/\/\/\1/g" $v
 sed -i -E "s/(wire \[63:0\] mig_io_port_cnt_)/\/\/\1/g" $v
 

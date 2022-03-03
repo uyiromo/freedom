@@ -69,30 +69,30 @@
 
 module vc707mig4gb (
   // Inouts
-  inout [63:0]  ddr3_dq,
-  inout [7:0]   ddr3_dqs_n,
-  inout [7:0]   ddr3_dqs_p,
+  inout [63:0]   ddr3_dq,
+  inout [7:0]    ddr3_dqs_n,
+  inout [7:0]    ddr3_dqs_p,
   // Outputs
-  output [15:0] ddr3_addr,
-  output [2:0]  ddr3_ba,
-  output        ddr3_ras_n,
-  output        ddr3_cas_n,
-  output        ddr3_we_n,
-  output        ddr3_reset_n,
-  output [0:0]  ddr3_ck_p,
-  output [0:0]  ddr3_ck_n,
-  output [0:0]  ddr3_cke,
-  output [0:0]  ddr3_cs_n,
-  output [7:0]  ddr3_dm,
-  output [0:0]  ddr3_odt,
+  output [15:0]  ddr3_addr,
+  output [2:0]   ddr3_ba,
+  output         ddr3_ras_n,
+  output         ddr3_cas_n,
+  output         ddr3_we_n,
+  output         ddr3_reset_n,
+  output [0:0]   ddr3_ck_p,
+  output [0:0]   ddr3_ck_n,
+  output [0:0]   ddr3_cke,
+  output [0:0]   ddr3_cs_n,
+  output [7:0]   ddr3_dm,
+  output [0:0]   ddr3_odt,
   // Inputs
   // Single-ended system clock
-  input         sys_clk_i,
+  input          sys_clk_i,
   // user interface signals
-  output        ui_clk,
-  output        ui_clk_sync_rst,
-  output        mmcm_locked,
-  input         aresetn,
+  output         ui_clk,
+  output         ui_clk_sync_rst,
+  output         mmcm_locked,
+  input          aresetn,
   //input         app_sr_req,
   //input         app_ref_req,
   //input         app_zq_req,
@@ -100,83 +100,87 @@ module vc707mig4gb (
   //output        app_ref_ack,
   //output        app_zq_ack,
   // Slave Interface Write Address Ports
-  input [3:0]   s_axi_awid,
-  input [31:0]  s_axi_awaddr,
-  input [7:0]   s_axi_awlen,
-  input [2:0]   s_axi_awsize,
+  input [3:0]    s_axi_awid,
+  input [31:0]   s_axi_awaddr,
+  input [7:0]    s_axi_awlen,
+  input [2:0]    s_axi_awsize,
   //input [1:0]   s_axi_awburst,
   //input [0:0]   s_axi_awlock,
   //input [3:0]   s_axi_awcache,
   //input [2:0]   s_axi_awprot,
   //input [3:0]   s_axi_awqos,
-  input         s_axi_awvalid,
-  output        s_axi_awready,
+  input          s_axi_awvalid,
+  output         s_axi_awready,
   // Slave Interface Write Data Ports
   input [511:0]  s_axi_wdata,
   input [63:0]   s_axi_wstrb,
-  input         s_axi_wlast,
-  input         s_axi_wvalid,
-  output        s_axi_wready,
+  input          s_axi_wlast,
+  input          s_axi_wvalid,
+  output         s_axi_wready,
   // Slave Interface Write Response Ports
-  input         s_axi_bready,
-  output [3:0]  s_axi_bid,
+  input          s_axi_bready,
+  output [3:0]   s_axi_bid,
   //output [1:0]  s_axi_bresp,
-  output        s_axi_bvalid,
+  output         s_axi_bvalid,
   // Slave Interface Read Address Ports
-  input [3:0]   s_axi_arid,
-  input [31:0]  s_axi_araddr,
-  input [7:0]   s_axi_arlen,
-  input [2:0]   s_axi_arsize,
+  input [3:0]    s_axi_arid,
+  input [31:0]   s_axi_araddr,
+  input [7:0]    s_axi_arlen,
+  input [2:0]    s_axi_arsize,
   //input [1:0]   s_axi_arburst,
   //input [0:0]   s_axi_arlock,
   //input [3:0]   s_axi_arcache,
   //input [2:0]   s_axi_arprot,
   //input [3:0]   s_axi_arqos,
-  input         s_axi_arvalid,
-  output        s_axi_arready,
+  input          s_axi_arvalid,
+  output         s_axi_arready,
   // Slave Interface Read Data Ports
-  input         s_axi_rready,
-  output [3:0]  s_axi_rid,
+  input          s_axi_rready,
+  output [3:0]   s_axi_rid,
   output [511:0] s_axi_rdata,
   //output [1:0]  s_axi_rresp,
-  output        s_axi_rlast,
-  output        s_axi_rvalid,
-  output        init_calib_complete,
+  output         s_axi_rlast,
+  output         s_axi_rvalid,
+  output         init_calib_complete,
   //output [11:0] device_temp,
 `ifdef SKIP_CALIB
-  output        calib_tap_req,
-  input         calib_tap_load,
-  input [6:0]   calib_tap_addr,
-  input [7:0]   calib_tap_val,
-  input         calib_tap_load_done,
+  output         calib_tap_req,
+  input          calib_tap_load,
+  input [6:0]    calib_tap_addr,
+  input [7:0]    calib_tap_val,
+  input          calib_tap_load_done,
 `endif
   
-  input         sys_rst,
+  input          sys_rst,
 
-  input  [ 4:0] tRCD2,
-  input  [ 4:0] tRP2,
-  input  [ 2:0] nvmm_begin
-  //output [39:0] cnt_act
+  input [ 2:0]   nvmm_begin,
+  input [ 7:0]   tRCD2,
+  input [ 7:0]   tRP2,
+  input [10:0]   tRAS2,
+  output [39:0]  cnt_act
   );
 
-   //wire         ddr_clock;
    wire [6:0]   ddr_cmd;
-   reg [4:0]    tRCD2_r;
-   reg [4:0]    tRP2_r;
-   //reg [2:0]    nvmm_begin_r;
+   reg  [7:0]    tRCD2_r;
+   reg  [7:0]    tRP2_r;
+   reg  [10:0]    tRAS2_r;
+   reg  [2:0]    nvmm_begin_r;
 
-   wire [4:0]   tRCD2_i;
-   wire [4:0]   tRP2_i;
+   wire [7:0]   tRCD2_i;
+   wire [7:0]   tRP2_i;
+   wire [10:0]  tRAS2_i;
    wire [2:0]   nvmm_begin_i;
    assign tRCD2_i      = tRCD2_r;
    assign tRP2_i       = tRP2_r;
+   assign tRAS2_i      = tRAS2_r;
    assign nvmm_begin_i = nvmm_begin;
 
    always @( posedge sys_clk_i )
    begin
       tRCD2_r      <= tRCD2;
       tRP2_r       <= tRP2;
-      //nvmm_begin_r <= nvmm_begin;
+      tRAS2_r      <= tRAS2;
+      nvmm_begin_r <= nvmm_begin;
    end
 
   /*
@@ -200,7 +204,7 @@ module vc707mig4gb (
    wire [ 3:0]  cmd;
    reg  [39:0]  cnt_act_r;
 
-   //assign cnt_act = cnt_act_r;
+   assign cnt_act = cnt_act_r;
    always @( ddr_cmd )
    begin
       if ( !init_calib_complete )
@@ -314,9 +318,9 @@ module vc707mig4gb (
     .sys_rst                        (sys_rst),
     .tRCD2(tRCD2_i),
     .tRP2(tRP2_i),
+    .tRAS2(tRAS2_i),
     .nvmm_begin(nvmm_begin_i),
     .bank_dirty(bank_dirty),
-    //.ddr_clock(ddr_clock),
     .ddr_cmd(ddr_cmd)
     );
 // End of IP top instance

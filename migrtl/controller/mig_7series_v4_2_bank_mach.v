@@ -189,24 +189,28 @@ module mig_7series_v4_2_bank_mach #
   input [7:0]           slot_0_present,         // To bank_common0 of bank_common.v, ...
   input [7:0]           slot_1_present,         // To bank_common0 of bank_common.v, ...
   input                 use_addr,
-  input  [ 4:0] tRCD2,
-  input  [ 4:0] tRP2,
+  input  [ 7:0] tRCD2,
+  input  [ 7:0] tRP2,
+  input  [10:0] tRAS2,
   input  [ 2:0] nvmm_begin,
   input  [ 7:0] bank_dirty
   );
 
-   reg [ 4:0] tRCD2_r;
-   reg [ 4:0] tRP2_r;
+   reg [ 7:0] tRCD2_r;
+   reg [ 7:0] tRP2_r;
+   reg [10:0] tRAS2_r;
    //reg [2:0]  nvmm_begin_r;
    //reg [ 7:0] bank_dirty_r;
 
-   wire [ 4:0] tRCD2_i;
-   wire [ 4:0] tRP2_i;
+   wire [ 7:0] tRCD2_i;
+   wire [ 7:0] tRP2_i;
+   wire [10:0] tRAS2_i;
    wire [ 2:0]  nvmm_begin_i;
    wire [ 7:0] bank_dirty_i;
 
    assign tRCD2_i      = tRCD2_r;
    assign tRP2_i       = tRP2_r;
+   assign tRAS2_i      = tRAS2_r;
    assign nvmm_begin_i = nvmm_begin;
    assign bank_dirty_i = bank_dirty;
 
@@ -214,10 +218,10 @@ module mig_7series_v4_2_bank_mach #
    begin
       tRCD2_r      <= tRCD2;
       tRP2_r       <= tRP2;
+      tRAS2_r      <= tRAS2;
       //nvmm_begin_r <= nvmm_begin;
       //bank_dirty_r <= bank_dirty;
    end
-
 
   function integer clogb2 (input integer size); // ceiling logb2
     begin
@@ -451,6 +455,7 @@ module mig_7series_v4_2_bank_mach #
          .was_wr                        (was_wr),
          .tRCD2(tRCD2_i),
          .tRP2(tRP2_i),
+         .tRAS2(tRAS2_i),
          .nvmm_begin(nvmm_begin_i),
          .bank_dirty(bank_dirty_i)
     );
