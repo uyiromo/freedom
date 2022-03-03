@@ -98,8 +98,8 @@
 `define sg125
 `define x8
 `define MAX_MEM
-`define mem_init
-`define MEM_INIT_TXT "/sim/mem_init.txt"
+//`define mem_init
+`define MEM_INIT_TXT "/home/oy/freedom-devel/sim/mem_init.txt"
 module ddr3_model (
     rst_n,
     ck,
